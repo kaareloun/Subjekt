@@ -15,3 +15,10 @@ Route::get('/', function () {
     $employee = App\Employee::find(1);
     return view('welcome', compact('employee'));
 });
+
+Route::get('/person/create', function () {
+    return view('addPerson');
+});
+
+Route::get('/person/{id}', 'PersonController@show');
+Route::post('/person/{id}', 'PersonController@store');
