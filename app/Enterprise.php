@@ -8,6 +8,7 @@ class Enterprise extends Model
 {
     protected $primaryKey = 'enterprise';
     protected $table = 'enterprise';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *

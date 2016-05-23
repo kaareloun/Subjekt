@@ -54,7 +54,7 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        $person = Person::find($id);
+        $person = Person::findOrFail($id);
         return view('person', compact('person'));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Enterprise;
 
 use App\Http\Requests;
 
@@ -36,7 +37,13 @@ class EnterpriseController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $enterprise = Enterprise::create([
+            'name' => $request->input('name'),
+            'full_name' => $request->input('full_name'),
+            'updated' => '2015-01-01'
+        ]);
+
+        return view('addEnterprise');
     }
 
     /**
@@ -47,7 +54,9 @@ class EnterpriseController extends Controller
      */
     public function show($id)
     {
-        //
+        $enterprise = Enterprise::findOrFail($id);
+        
+        return view('enterprise', compact('enterprise'));
     }
 
     /**
