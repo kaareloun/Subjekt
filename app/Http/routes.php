@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::get('/person/create', function () {
     return view('addPerson');
 });
+<<<<<<< HEAD
 Route::get('/person/{id}', 'PersonController@show');
 Route::post('/person/{id}', 'PersonController@store');
 
@@ -29,3 +30,9 @@ Route::get('/enterprise/create', function () {
 });
 Route::get('/enterprise/{id}', 'EnterpriseController@show');
 Route::post('/enterprise/{id}', 'EnterpriseController@store');
+=======
+
+Route::post('/person/create', 'PersonController@store');
+Route::get('/person/{id}', 'PersonController@show');
+
+>>>>>>> origin/master
