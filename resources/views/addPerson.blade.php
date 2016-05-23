@@ -13,8 +13,8 @@
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     first name: <input value="{{old('first_name')}}" type="text" name="first_name">{{$errors->first('first_name')}}<br>
                     last name: <input value="{{old('last_name')}}" type="text" name="last_name">{{$errors->first('last_name')}}<br>
-                    identity_code: <input type="text" name="identity_code"><br>
-                    birth_date: <input type="text" name="birth_date"><br>
+                    identity_code: <input value="{{old('identity_code')}}" type="text" name="identity_code">{{$errors->first('identity_code')}}<br>
+                    birth_date: <input value="{{old('birth_date')}}" type="date" name="birth_date">{{$errors->first('birth_date')}}<br>
                     -----<br>
                     riik:<br>
                     maakond:<br>

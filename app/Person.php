@@ -8,6 +8,11 @@ class Person extends Model
 {
     protected $primaryKey = 'person';
     protected $table = 'person';
+    /* 
+    https://laravel.com/docs/5.2/eloquent#timestamps
+    */
+    public $timestamps  = false;
+
     /**
      * The attributes that are mass assignable.
      *

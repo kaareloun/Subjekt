@@ -17,9 +17,12 @@ Route::get('/', function () {
 });
 
 //PERSON
+/*
 Route::get('/person/create', function () {
     return view('addPerson');
 });
+*/
+Route::get('/person/create', 'PersonController@showFormGet');
 Route::post('/person/create', 'PersonController@store');
 Route::get('/person/{id}', 'PersonController@show');
 
