@@ -20,5 +20,6 @@ Route::get('/person/create', function () {
     return view('addPerson');
 });
 
+Route::post('/person/create', 'PersonController@store');
 Route::get('/person/{id}', 'PersonController@show');
-Route::post('/person/{id}', 'PersonController@store');
+
