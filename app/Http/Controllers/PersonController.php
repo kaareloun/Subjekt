@@ -37,7 +37,13 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $this->validate($request, [
+        'first_name' => 'required|max:12',
+        'last_name' => 'required|max:12',
+        ]);
+
+        
+        dd($request->input('first_name'));
     }
 
     /**

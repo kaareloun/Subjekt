@@ -11,8 +11,8 @@
             <div class="content">
                 <form class="" action="create" method="post">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                    first name: <input type="text" name="first_name"><br>
-                    last name: <input type="text" name="last_name"><br>
+                    first name: <input type="text" name="first_name">{{$errors->first('first_name')}}<br>
+                    last name: <input type="text" name="last_name">{{$errors->first('last_name')}}<br>
                     identity_code: <input type="text" name="identity_code"><br>
                     birth_date: <input type="text" name="birth_date"><br>
                     -----<br>
@@ -27,5 +27,16 @@
                 </form>
             </div>
         </div>
+        
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+        
     </body>
 </html>
