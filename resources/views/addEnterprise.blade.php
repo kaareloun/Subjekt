@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Laravel</title>
+<head>
+    <title>Laravel</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <form class="" action="create" method="post">
-                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                    <input type="text" name="name" placeholder="Name">
-                    <input type="text" name="full_name" placeholder="Full name">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <form class="" action="create" method="post">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Name" name="name">
+                    {{$errors->first('name')}}
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Full Name" name="full_name">
+                    {{$errors->first('full_name')}}
+                </div>
+                <div class="input-group">
                     <input type="submit" name="submit" value="Submit">
-                </form>
-
-            </div>
+                </div>
+            </form>
         </div>
-    </body>
+    </div>
+</body>
 </html>

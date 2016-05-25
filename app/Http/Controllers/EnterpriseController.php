@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Enterprise;
+use Validator;
 
 use App\Http\Requests;
 
@@ -26,7 +27,7 @@ class EnterpriseController extends Controller
      */
     public function create()
     {
-        //
+        return view('addEnterprise');
     }
 
     /**
@@ -37,13 +38,24 @@ class EnterpriseController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:10',
+            'full_name' => 'required|max:20'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('enterprise/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $enterprise = Enterprise::create([
             'name' => $request->input('name'),
             'full_name' => $request->input('full_name'),
             'updated' => '2015-01-01'
         ]);
 
-        return view('addEnterprise');
+        return redirect('enterprise/create');
     }
 
     /**
@@ -55,7 +67,7 @@ class EnterpriseController extends Controller
     public function show($id)
     {
         $enterprise = Enterprise::findOrFail($id);
-        
+
         return view('enterprise', compact('enterprise'));
     }
 
