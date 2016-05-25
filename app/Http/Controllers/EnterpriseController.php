@@ -27,7 +27,7 @@ class EnterpriseController extends Controller
      */
     public function create()
     {
-        return view('addEnterprise');
+        return view('enterprise/addEnterprise');
     }
 
     /**
@@ -68,7 +68,7 @@ class EnterpriseController extends Controller
     {
         $enterprise = Enterprise::findOrFail($id);
 
-        return view('enterprise', compact('enterprise'));
+        return view('enterprise/enterprise', compact('enterprise'));
     }
 
     /**

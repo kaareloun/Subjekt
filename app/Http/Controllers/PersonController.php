@@ -48,7 +48,7 @@ class PersonController extends Controller
         'birth_date' => 'required|date|after:1900-01-01|before:today',
         'identity_code' => 'required|max:20',
         ]);
-        
+
         Person::create([ /* v6i return Person::create*/
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
@@ -57,12 +57,12 @@ class PersonController extends Controller
             'created' => Carbon::now()->toDayDateTimeString(),
         ]);
 
-        
+
         dd($request->input('first_name'));
     }
-    
+
     public function showFormGet(){
-        return view('addPerson');
+        return view('person/addPerson');
     }
 
     /**
@@ -70,11 +70,11 @@ class PersonController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */    
+     */
     public function show($id)
     {
         $person = Person::findOrFail($id);
-        return view('person', compact('person'));
+        return view('person/person', compact('person'));
     }
 
     /**
