@@ -9,14 +9,17 @@
 <body>
     <div class="container">
         <div class="content">
-            <form class="" action="/enterprise" method="post">
+            <form class="" action="/enterprise/{{$enterprise->enterprise}}" method="POST">
+                <input type="hidden" name="_method" value="PUT" />
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Name" name="name" value="{{old('name')}}">
+                    <input type="text" class="form-control" placeholder="Name" name="name"
+                        value="{{ (old('name')) ? old('name') : $enterprise->name }}">
                     {{$errors->first('name')}}
                 </div>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Full Name" name="full_name" value="{{old('full_name')}}">
+                    <input type="text" class="form-control" placeholder="Full Name" name="full_name"
+                        value="{{ (old('full_name')) ? old('full_name') : $enterprise->full_name }}">
                     {{$errors->first('full_name')}}
                 </div>
                 <div class="input-group">

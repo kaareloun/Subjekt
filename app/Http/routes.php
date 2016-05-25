@@ -27,6 +27,4 @@ Route::post('/person/create', 'PersonController@store');
 Route::get('/person/{id}', 'PersonController@show');
 
 //ENTERPRISE
-Route::get('/enterprise/create', 'EnterpriseController@create');
-Route::post('/enterprise/create', 'EnterpriseController@store');
-Route::get('/enterprise/{id}', 'EnterpriseController@show');
+Route::resource('enterprise', 'EnterpriseController');
