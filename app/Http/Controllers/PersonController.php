@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Person;
+use App\Address;
 use Carbon\Carbon;
 
 use App\Http\Requests;
@@ -57,6 +58,13 @@ class PersonController extends Controller
             'created' => Carbon::now()->toDayDateTimeString(),
         ]);
 
+        Address::create([ /* v6i return Person::create*/
+            'country' => $request['country'],
+            'county' => $request['county'],
+            'town_village' => $request['town_village'],
+            'street_address' => $request['street_address'],
+            'zipcode' => $request['zipcode'],
+        ]);
 
         dd($request->input('first_name'));
     }

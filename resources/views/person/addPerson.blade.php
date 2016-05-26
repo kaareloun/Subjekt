@@ -16,11 +16,11 @@
                     identity_code: <input value="{{old('identity_code')}}" type="text" name="identity_code">{{$errors->first('identity_code')}}<br>
                     birth_date: <input value="{{old('birth_date')}}" type="date" name="birth_date">{{$errors->first('birth_date')}}<br>
                     -----<br>
-                    riik:<br>
-                    maakond:<br>
-                    linn:<br>
-                    aadress:<br>
-                    postiindeks:<br>
+                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<br>
+                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<br>
+                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<br>
+                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<br>
+                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<br>
                     -----<br>
                     Subjekt tüüp:<br>
                     <input type="submit" value="Submit">
