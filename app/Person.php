@@ -22,7 +22,7 @@ class Person extends Model
         'first_name', 'last_name', 'identity_code', 'birth_date', 'created_by', 'updated_by', 'created', 'updated'
     ];
 
-    public function address()
+    public function addresses()
     {
         return $this->hasMany('App\Address', 'subject_fk')->where('subject_type_fk', '=' , 1);
     }

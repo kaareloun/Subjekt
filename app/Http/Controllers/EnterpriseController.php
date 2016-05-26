@@ -44,6 +44,17 @@ class EnterpriseController extends Controller
             'full_name' => $request->input('full_name'),
             'updated' => '2015-01-01'
         ]);
+        
+        Address::create([
+            'country' => $request['country'],
+            'county' => $request['county'],
+            'town_village' => $request['town_village'],
+            'street_address' => $request['street_address'],
+            'zipcode' => $request['zipcode'],
+            'subject_fk' => $enterprise->enterprise,
+            'subject_type_fk' => 2,
+            'address_type_fk' => 3,
+        ]);
 
         return redirect('enterprise/create');
     }

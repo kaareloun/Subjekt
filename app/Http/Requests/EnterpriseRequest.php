@@ -25,7 +25,13 @@ class EnterpriseRequest extends Request
     {
         return [
             'name' => 'required|max:10',
-            'full_name' => 'required|max:20'
+            'full_name' => 'required|max:20',
+
+            'country' => 'required|max:50',
+            'county' => 'required|max:100',
+            'town_village' => 'required|max:100',
+            'street_address' => 'required|max:100',
+            'zipcode' => 'required|max:50',
         ];
     }
 }
