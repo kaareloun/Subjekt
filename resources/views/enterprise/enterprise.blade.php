@@ -10,11 +10,23 @@
         <div class="container">
             <div class="content">
                 <div class="">
-                    {{ $enterprise['name'] }}
+                    Name: {{ $enterprise['name'] }}
                 </div>
                 <div class="">
-                    {{ $enterprise['full_name'] }}
+                    Full name: {{ $enterprise['full_name'] }}
                 </div>
+                <h5>Addresses</h5>
+                <ul>
+                @foreach($enterprise->addresses()->get() as $address)
+                    <li>{{$address->country}}</li>
+                    <ul>
+                        <li>Country: {{$address->county}}</li>
+                        <li>Town/village: {{$address->town_village}}</li>
+                        <li>Street address: {{$address->street_address}}</li>
+                        <li>Zipcode: {{$address->zipcode}}</li>
+                    </ul>
+                @endforeach
+                </ul>
             </div>
         </div>
     </body>

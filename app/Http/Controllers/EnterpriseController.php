@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EnterpriseRequest;
 use Illuminate\Http\Request;
 use App\Enterprise;
-use Validator;
 
 use App\Http\Requests;
 
@@ -44,7 +43,7 @@ class EnterpriseController extends Controller
             'full_name' => $request->input('full_name'),
             'updated' => '2015-01-01'
         ]);
-        
+
         Address::create([
             'country' => $request['country'],
             'county' => $request['county'],
