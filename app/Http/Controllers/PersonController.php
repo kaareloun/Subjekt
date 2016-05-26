@@ -126,7 +126,9 @@ class PersonController extends Controller
     public function show($id)
     {
         $person = Person::findOrFail($id);
-        return view('person/person', compact('person'));
+        $addresses = $person -> addresses();
+        //dd($addresses);
+        return view('person/person', compact('person'), compact('addresses'));
     }
 
     /**
