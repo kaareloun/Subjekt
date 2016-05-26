@@ -8,7 +8,7 @@ class Person extends Model
 {
     protected $primaryKey = 'person';
     protected $table = 'person';
-    /* 
+    /*
     https://laravel.com/docs/5.2/eloquent#timestamps
     */
     public $timestamps  = false;
@@ -21,4 +21,9 @@ class Person extends Model
     protected $fillable = [
         'first_name', 'last_name', 'identity_code', 'birth_date', 'created_by', 'updated_by', 'created', 'updated'
     ];
+
+    public function address()
+    {
+        return $this->hasMany('App\Address', 'subject_fk');
+    }
 }
