@@ -24,6 +24,8 @@ Route::get('/person/create', function () {
 */
 Route::get('/person/create', 'PersonController@showFormGet');
 Route::post('/person/create', 'PersonController@store');
+Route::get('/person/update/{id}', 'PersonController@showFormUpdateGet');
+Route::post('/person/update/{id}', 'PersonController@storeUpdate');
 Route::get('/person/{id}', 'PersonController@show');
 
 //ENTERPRISE
