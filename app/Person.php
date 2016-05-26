@@ -24,6 +24,6 @@ class Person extends Model
 
     public function address()
     {
-        return $this->hasMany('App\Address', 'subject_fk');
+        return $this->hasMany('App\Address', 'subject_fk')->where('subject_type_fk', '=' , 1);
     }
 }
