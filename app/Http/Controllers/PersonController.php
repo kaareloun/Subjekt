@@ -50,13 +50,17 @@ class PersonController extends Controller
         'identity_code' => 'required|max:20',
         ]);
 
-        Person::create([ /* v6i return Person::create*/
+        $personA = Person::create([ /* v6i return Person::create*/
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'identity_code' => $request['identity_code'],
             'birth_date' => $request['birth_date'],
             'created' => Carbon::now()->toDayDateTimeString(),
         ]);
+        
+        $personId = $personA -> person;
+        //$personType = $personA -> 
+        // SUBJEKT TYPE ON PUUU
 
         Address::create([ /* v6i return Person::create*/
             'country' => $request['country'],
@@ -64,6 +68,9 @@ class PersonController extends Controller
             'town_village' => $request['town_village'],
             'street_address' => $request['street_address'],
             'zipcode' => $request['zipcode'],
+            'subject_fk' => $personId,
+            'subject_type_fk' => 1,
+            'address_type_fk' => 1,
         ]);
 
         dd($request->input('first_name'));
