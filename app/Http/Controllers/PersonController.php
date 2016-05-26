@@ -48,6 +48,12 @@ class PersonController extends Controller
         'last_name' => 'required|max:12',
         'birth_date' => 'required|date|after:1900-01-01|before:today',
         'identity_code' => 'required|max:20',
+            
+        'country' => 'required|max:50',
+        'county' => 'required|max:100',
+        'town_village' => 'required|max:100',
+        'street_address' => 'required|max:100',
+        'zipcode' => 'required|max:50',
         ]);
 
         $personA = Person::create([ /* v6i return Person::create*/
