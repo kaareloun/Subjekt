@@ -114,7 +114,8 @@ class PersonController extends Controller
     
     public function showFormUpdateGet($id){
         $person = Person::findOrFail($id);
-        return view('person/updatePerson', compact('person'));
+        $addresses = $person -> addresses();
+        return view('person/updatePerson', compact('person'), compact('addresses'));
     }
 
     /**

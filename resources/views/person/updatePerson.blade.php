@@ -40,14 +40,29 @@
                    
              
                     <br><br><br><br>
-                    -----<br>
-                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<br>
-                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<br>
-                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<br>
-                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<br>
-                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<br>
-                    -----<br>
-                    Subjekt tüüp:<br>
+                    Addresses:
+                        <div>
+                            <table border="1">
+                                <th>Address type</th>
+                                <th>Country</th>
+                                <th>County</th>
+                                <th>Town/Village</th>
+                                <th>Street Address</th>
+                                <th>Zipcode</th>
+                                <th>Update</th>
+                                @foreach ($addresses->get() as $address)
+                                    <tr>
+                                        <td>{{ $address['address_type'] -> type_name}}</td>
+                                        <td>{{ $address['country'] }}</td>
+                                        <td>{{ $address['county'] }}</td>
+                                        <td>{{ $address['town_village'] }}</td>
+                                        <td>{{ $address['street_address'] }}</td>
+                                        <td>{{ $address['zipcode'] }}</td>
+                                        <td><a href="">EDIT</a></td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
                     <input type="submit" value="Submit">
                 </form>
             </div>
