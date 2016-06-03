@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Address;
+use Validator;
 
 class AddressController extends Controller
 {
@@ -70,19 +72,26 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = $this->validate($request, [
+        $this->validate($request, [
             'country' => 'required|max:50',
             'county' => 'required|max:100',
             'town_village' => 'required|max:100',
             'street_address' => 'required|max:100',
             'zipcode' => 'required|max:50',
         ]);
+        // $validator = Validator::make($request->all(), [
+        //     'country' => 'required|max:50',
+        //     'county' => 'required|max:100',
+        //     'town_village' => 'required|max:100',
+        //     'street_address' => 'required|max:100',
+        //     'zipcode' => 'required|max:50',
+        // ]);
+        //
+        // if ($validator->fails()) {
+        //     return response()->json($validator->messages(), 200);
+        // }
 
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 200);
-        }
-
-        $address = Address::find($id)->update([ /* v6i return Person::create*/
+        $address = Address::find($id)->update([
             'country' => $request['country'],
             'county' => $request['county'],
             'town_village' => $request['town_village'],
@@ -90,7 +99,7 @@ class AddressController extends Controller
             'zipcode' => $request['zipcode'],
         ]);
 
-        return response()->json($address);
+        return response()->json(Address::find($id));
 
     }
 

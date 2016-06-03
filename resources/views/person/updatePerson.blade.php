@@ -71,16 +71,17 @@
 
 
         @foreach ($addresses->get() as $address)
-            <div id="address{{$address->address}}" style="display: none" class="addressForm">
-                <form action="/address/{{$address->address}}/update" method="post">
-                    riik:<input value="{{ $address['country'] }}" type="text" name="country"><br>
-                    maakond:<input value="{{ $address['county'] }}" type="text" name="county"><br>
-                    linn:<input value="{{ $address['town_village'] }}" type="text" name="town_village"><br>
-                    aadress:<input value="{{ $address['street_address'] }}" type="text" name="street_address"><br>
-                    postiindeks:<input value="{{ $address['zipcode'] }}" type="text" name="zipcode"><br>
+
+                <form id="address{{$address->address}}" action="/address/{{$address->address}}/update" method="post" style="display: none" class="addressForm">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    riik:<input value="{{ $address['country'] }}" type="text" name="country"><span class="jsonError" style="display: none" id="riik{{$address->address}}"></span><br>
+                    maakond:<input value="{{ $address['county'] }}" type="text" name="county"><span class="jsonError" style="display: none" id="maakond{{$address->address}}"></span><br>
+                    linn:<input value="{{ $address['town_village'] }}" type="text" name="town_village"><span class="jsonError" style="display: none" id="linn{{$address->address}}"></span><br>
+                    aadress:<input value="{{ $address['street_address'] }}" type="text" name="street_address"><span class="jsonError" style="display: none" id="aadress{{$address->address}}"></span><br>
+                    postiindeks:<input value="{{ $address['zipcode'] }}" type="text" name="zipcode"><span class="jsonError" style="display: none" id="postiindeks{{$address->address}}"></span><br>
                     <input type="submit" value="Submit">
                 </form>
-            </div>
+
         @endforeach
 
 @if (count($errors) > 0)
@@ -99,5 +100,39 @@
             $(".addressForm").hide();
             $( "#address" + id ).show();
         }
+
+        function updateAddress(id) {
+            var url = "/address/" + id + "/update"; // the script where you handle the form input.
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#address" + id).serialize(), // serializes the form's elements.
+                success: function(data) {
+                    $(".addressForm").hide();
+                    
+                },
+                error: function(data) {
+                    var errors = data.responseJSON;
+                    $("#riik" + id).html(errors.country);
+                    $("#maakond" + id).html(errors.county);
+                    $("#linn" + id).html(errors.town_village);
+                    $("#aadress" + id).html(errors.street_address);
+                    $("#postiindeks" + id).html(errors.zipcode);
+                    $(".jsonError").show();
+                }
+            });
+        }
+
+        $("form").submit(function(e) {
+            e.preventDefault();
+            $(".jsonError").hide();
+            $(".jsonError").html("");
+            var id = $(this).attr('id');
+            var id2 = id.replace(/\D/g,'');
+            updateAddress(id2);
+        });
+
+
+
     </script>
 </html>
