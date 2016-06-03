@@ -22,6 +22,6 @@ class Address extends Model
     ];
     
     public function address_type(){
-        return $this -> hasOne('App\Address_type', 'address_type')->where('address_type', '=' , 'address_type_fk');
+        return $this -> belongsTo('App\Address_type', 'subject_type_fk');
     }
 }
