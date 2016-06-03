@@ -44,7 +44,7 @@
                                 <th>Zipcode</th>
                                 @foreach ($addresses->get() as $address)
                                     <tr>
-                                        <td></td>
+                                        <td>{{ $address['address_type'] -> type_name }}</td>
                                         <td>{{ $address['country'] }}</td>
                                         <td>{{ $address['county'] }}</td>
                                         <td>{{ $address['town_village'] }}</td>
