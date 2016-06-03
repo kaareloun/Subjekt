@@ -53,12 +53,12 @@
                                 <th>Update</th>
                                 @foreach ($addresses->get() as $address)
                                     <tr>
-                                        <td>{{ $address['address_type'] -> type_name}}</td>
-                                        <td>{{ $address['country'] }}</td>
-                                        <td>{{ $address['county'] }}</td>
-                                        <td>{{ $address['town_village'] }}</td>
-                                        <td>{{ $address['street_address'] }}</td>
-                                        <td>{{ $address['zipcode'] }}</td>
+                                        <td id="1address_type{{$address->address}}">{{ $address['address_type'] -> type_name}}</td>
+                                        <td id="1country{{$address->address}}">{{ $address['country'] }}</td>
+                                        <td id="1county{{$address->address}}">{{ $address['county'] }}</td>
+                                        <td id="1town_village{{$address->address}}">{{ $address['town_village'] }}</td>
+                                        <td id="1street_address{{$address->address}}">{{ $address['street_address'] }}</td>
+                                        <td id="1zipcode{{$address->address}}">{{ $address['zipcode'] }}</td>
                                         <td><a id="nupp{{$address->address}}" nr=href="#" onClick="funkts({{$address->address}})">EDIT</a></td>
                                     </tr>
                                 @endforeach
@@ -109,6 +109,15 @@
                 data: $("#address" + id).serialize(), // serializes the form's elements.
                 success: function(data) {
                     $(".addressForm").hide();
+                    console.log(data.country);
+                    console.log(id);
+                    $("#1address_type{{$address->address}}").html(data.address_type);
+                    $("#1country{{$address->address}}").html(data.country);
+                    $("#1county{{$address->address}}").html(data.county);
+                    $("#1town_village{{$address->address}}").html(data.town_village);
+                    $("#1street_address{{$address->address}}").html(data.street_address);
+                    $("#1zipcode{{$address->address}}").html(data.zipcode);
+                    
                     
                 },
                 error: function(data) {
