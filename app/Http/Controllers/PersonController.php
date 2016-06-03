@@ -51,7 +51,7 @@ class PersonController extends Controller
         'last_name' => 'required|max:12',
         'birth_date' => 'required|date|after:1900-01-01|before:today',
         'identity_code' => 'required|max:20',
-            
+
         'country' => 'required|max:50',
         'county' => 'required|max:100',
         'town_village' => 'required|max:100',
@@ -67,9 +67,9 @@ class PersonController extends Controller
             'birth_date' => $request['birth_date'],
             'created' => Carbon::now()->toDayDateTimeString(),
         ]);
-        
+
         $personId = $personA -> person;
-        //$personType = $personA -> 
+        //$personType = $personA ->
 
         Address::create([ /* v6i return Person::create*/
             'country' => $request['country'],
@@ -84,7 +84,7 @@ class PersonController extends Controller
 
         dd($request->input('first_name'));
     }
-    
+
     public function storeUpdate(Request $request, $id){
         $this->validate($request, [
             'first_name' => 'required|max:12',
@@ -92,8 +92,8 @@ class PersonController extends Controller
             'birth_date' => 'required|date|after:1900-01-01|before:today',
             'identity_code' => 'required|max:20',
         ]);
-        
-        
+
+
         Person::find($id) -> update([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
@@ -101,17 +101,17 @@ class PersonController extends Controller
             'birth_date' => $request['birth_date'],
             'updated' => Carbon::now()->toDayDateTimeString(),
         ]);
-        
-        
+
+
         dd($request->input('first_name'));
     }
-    
-    
+
+
 
     public function showFormGet(){
         return view('person/addPerson');
     }
-    
+
     public function showFormUpdateGet($id){
         $person = Person::findOrFail($id);
         $addresses = $person -> addresses();
