@@ -136,7 +136,7 @@
             });
         }
 
-        $("form").submit(function(e) {
+        $(".addressForm").submit(function(e) {
             e.preventDefault();
             $(".jsonError").hide();
             $(".jsonError").html("");
