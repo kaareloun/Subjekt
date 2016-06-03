@@ -28,5 +28,7 @@ Route::get('/person/update/{id}', 'PersonController@showFormUpdateGet');
 Route::post('/person/update/{id}', 'PersonController@storeUpdate');
 Route::get('/person/{id}', 'PersonController@show');
 
+Route::post('/address/{id}/update', 'AddressController@update');
+
 //ENTERPRISE
 Route::resource('enterprise', 'EnterpriseController');
