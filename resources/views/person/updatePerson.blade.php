@@ -7,16 +7,9 @@
     <style>
         td:empty {
             visibility: hidden;
-        }    
-    </style>
-        
-    <script>
-        
-        function show(){
-            
         }
-        
-    </script>
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -45,8 +38,8 @@
                             <td>{{$errors->first('birth_date')}}</td>
                         </tr>
                     </table>
-                   
-             
+
+
                     <br><br><br><br>
                     Addresses:
                         <div>
@@ -66,7 +59,7 @@
                                         <td>{{ $address['town_village'] }}</td>
                                         <td>{{ $address['street_address'] }}</td>
                                         <td>{{ $address['zipcode'] }}</td>
-                                        <td><a onclick="show()" href="#">EDIT</a></td>
+                                        <td><a id="nupp{{$address->address}}" nr=href="#" onClick="funkts({{$address->address}})">EDIT</a></td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -75,16 +68,21 @@
                 </form>
             </div>
         </div>
-        
-        
-        <div id="editField" style="visibility: hidden">
-                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<br>
-                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<br>
-                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<br>
-                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<br>
-                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<br>
-        </div>
-        
+
+
+        @foreach ($addresses->get() as $address)
+            <div id="address{{$address->address}}" style="display: none" class="addressForm">
+                <form action="/address/{{$address->address}}/update" method="post">
+                    riik:<input value="{{ $address['country'] }}" type="text" name="country"><br>
+                    maakond:<input value="{{ $address['county'] }}" type="text" name="county"><br>
+                    linn:<input value="{{ $address['town_village'] }}" type="text" name="town_village"><br>
+                    aadress:<input value="{{ $address['street_address'] }}" type="text" name="street_address"><br>
+                    postiindeks:<input value="{{ $address['zipcode'] }}" type="text" name="zipcode"><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        @endforeach
+
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <ul>
@@ -94,6 +92,12 @@
         </ul>
     </div>
 @endif
-        
+
     </body>
+    <script>
+        function funkts(id){
+            $(".addressForm").hide();
+            $( "#address" + id ).show();
+        }
+    </script>
 </html>
