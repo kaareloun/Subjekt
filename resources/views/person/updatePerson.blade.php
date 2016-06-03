@@ -98,6 +98,9 @@
     <script>
         function funkts(id){
             $(".addressForm").hide();
+
+            
+
             $( "#address" + id ).show();
         }
 
@@ -109,6 +112,7 @@
                 data: $("#address" + id).serialize(), // serializes the form's elements.
                 success: function(data) {
                     $(".addressForm").hide();
+<<<<<<< HEAD
                     console.log(data.country);
                     console.log(id);
                     $("#1address_type{{$address->address}}").html(data.address_type);
@@ -119,6 +123,9 @@
                     $("#1zipcode{{$address->address}}").html(data.zipcode);
                     
                     
+=======
+
+>>>>>>> origin/master
                 },
                 error: function(data) {
                     var errors = data.responseJSON;
