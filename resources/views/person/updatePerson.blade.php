@@ -112,20 +112,17 @@
                 data: $("#address" + id).serialize(), // serializes the form's elements.
                 success: function(data) {
                     $(".addressForm").hide();
-<<<<<<< HEAD
                     console.log(data.country);
                     console.log(id);
-                    $("#1address_type{{$address->address}}").html(data.address_type);
-                    $("#1country{{$address->address}}").html(data.country);
-                    $("#1county{{$address->address}}").html(data.county);
-                    $("#1town_village{{$address->address}}").html(data.town_village);
-                    $("#1street_address{{$address->address}}").html(data.street_address);
-                    $("#1zipcode{{$address->address}}").html(data.zipcode);
+                    $("#1address_type" + id).html(data.address_type);
+                    $("#1country" + id).html(data.country);
+                    $("#1county" + id).html(data.county);
+                    $("#1town_village" + id).html(data.town_village);
+                    $("#1street_address" + id).html(data.street_address);
+                    $("#1zipcode" + id).html(data.zipcode);
                     
                     
-=======
 
->>>>>>> origin/master
                 },
                 error: function(data) {
                     var errors = data.responseJSON;
