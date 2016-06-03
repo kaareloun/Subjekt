@@ -9,6 +9,14 @@
             visibility: hidden;
         }    
     </style>
+        
+    <script>
+        
+        function show(){
+            
+        }
+        
+    </script>
     </head>
     <body>
         <div class="container">
@@ -58,7 +66,7 @@
                                         <td>{{ $address['town_village'] }}</td>
                                         <td>{{ $address['street_address'] }}</td>
                                         <td>{{ $address['zipcode'] }}</td>
-                                        <td><a href="">EDIT</a></td>
+                                        <td><a onclick="show()" href="#">EDIT</a></td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -66,6 +74,15 @@
                     <input type="submit" value="Submit">
                 </form>
             </div>
+        </div>
+        
+        
+        <div id="editField" style="visibility: hidden">
+                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<br>
+                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<br>
+                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<br>
+                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<br>
+                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<br>
         </div>
         
 @if (count($errors) > 0)
