@@ -98,6 +98,9 @@
     <script>
         function funkts(id){
             $(".addressForm").hide();
+
+            
+
             $( "#address" + id ).show();
         }
 
@@ -109,7 +112,7 @@
                 data: $("#address" + id).serialize(), // serializes the form's elements.
                 success: function(data) {
                     $(".addressForm").hide();
-                    
+
                 },
                 error: function(data) {
                     var errors = data.responseJSON;
