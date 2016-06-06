@@ -22,4 +22,9 @@ class Enterprise extends Model
     {
         return $this->hasMany('App\Address', 'subject_fk')->where('subject_type_fk', '=' , 2);
     }
+
+    public function persons()
+    {
+        return $this->belongsToMany('App\Person', 'enterprise_person_relation', 'enterprise_fk', 'person_fk')->withPivot('ent_per_relation_type_fk');
+    }
 }

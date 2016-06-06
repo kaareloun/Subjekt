@@ -4,7 +4,7 @@
     <title>Laravel</title>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -27,55 +27,54 @@
                     <input type="submit" name="submit" value="Submit">
                 </div>
             </form>
+            <h3>Ettevõttega seotud isikud</h3>
+            @foreach($enterprise->persons()->get() as $person)
+                <div class="">
+                    <b>{{$relations->find($person->pivot->ent_per_relation_type_fk)->type_name}}</b> {{$person->first_name}} {{$person->last_name}}  {{$person->identity_code}} {{$person->birth_date}}
+                </div>
+            @endforeach
 
             <h3>Lisa ettevõttele isikuid</h3>
-            <form class="" action="index.html" method="post">
+            <form id="findPerson" class="" action="index.html" method="post">
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="First Name" value="{{old('first_name')}}">
+                  <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{old('first_name')}}">
                   {{$errors->first('first_name')}}
                 </div>
                 <div class="input-group">
                     <input type="submit" name="submit" value="Submit">
                 </div>
             </form>
-            <div class="result">
+
+            <div id="result">
 
             </div>
         </div>
     </div>
 </body>
 <script type="text/javascript">
-    function findPerson() {
-        var url = "/person/" + id + "/update"; // the script where you handle the form input.
+    $("#findPerson").submit(function(e) {
+        e.preventDefault();
+        var url = "/api/person";
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: url,
-            data: $("#address" + id).serialize(), // serializes the form's elements.
+            data: $("#findPerson").serialize(),
             success: function(data) {
-                $(".addressForm").hide();
-                console.log(data.country);
-                console.log(id);
-                $("#1address_type" + id).html(data.address_type);
-                $("#1country" + id).html(data.country);
-                $("#1county" + id).html(data.county);
-                $("#1town_village" + id).html(data.town_village);
-                $("#1street_address" + id).html(data.street_address);
-                $("#1zipcode" + id).html(data.zipcode);
-
-
-
+                var output = "<form id='addPerson' action='/api/person/link' method='POST'><input type='hidden' name='enterprise' value='" + {{$enterprise->enterprise}} + "'><input type='hidden' name='_token' value='<?php echo csrf_token(); ?>'><input type='hidden' name='person' value='" + data.person + "'><b>Eesnimi: </b> " + data.first_name + ", <b>perenimi: </b> " + data.last_name + ", <b>isikukood:</b> " + data.identity_code;
+                output += "<select name='relation'>";
+                    @foreach($relations as $relation)
+                        output += "<option value='{{$relation->ent_per_relation_type}}'>{{$relation->type_name}}</option>";
+                    @endforeach
+                output += "</select>";
+                output += "<input type='submit' name='submit' value='Lisa'></form>";
+                $('#result').html(output);
+                console.log(data);
             },
             error: function(data) {
-                var errors = data.responseJSON;
-                $("#riik" + id).html(errors.country);
-                $("#maakond" + id).html(errors.county);
-                $("#linn" + id).html(errors.town_village);
-                $("#aadress" + id).html(errors.street_address);
-                $("#postiindeks" + id).html(errors.zipcode);
-                $(".jsonError").show();
+                console.log("ERROR:" + data);
             }
         });
-    }
+    });
 </script>
 </html>

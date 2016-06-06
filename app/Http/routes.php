@@ -35,5 +35,6 @@ Route::resource('enterprise', 'EnterpriseController');
 
 //API
 Route::group(['prefix' => 'api'], function () {
-    Route::get('person/{id}', 'API/ApiPersonController@show');
+    Route::post('/person/link', 'API\ApiPersonController@link');
+    Route::get('/person', 'API\ApiPersonController@show');
 });

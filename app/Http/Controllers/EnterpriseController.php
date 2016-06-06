@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EnterpriseRequest;
 use Illuminate\Http\Request;
 use App\Enterprise;
+use App\Ent_Per_Relation_Type as Relation;
 
 use App\Http\Requests;
 
@@ -80,8 +81,9 @@ class EnterpriseController extends Controller
     public function edit($id)
     {
         $enterprise = Enterprise::findOrFail($id);
+        $relations = Relation::all();
 
-        return view('enterprise/edit', compact('enterprise'));
+        return view('enterprise/edit', compact('enterprise', 'relations'));
     }
 
     /**

@@ -26,4 +26,9 @@ class Person extends Model
     {
         return $this->hasMany('App\Address', 'subject_fk')->where('subject_type_fk', '=' , 1);
     }
+
+    public function enterprises()
+    {
+        return $this->belongsToMany('App\Enterprise', 'enterprise_person_relation', 'person_fk', 'enterprise_fk');
+    }
 }
