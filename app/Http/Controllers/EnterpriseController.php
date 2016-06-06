@@ -27,7 +27,7 @@ class EnterpriseController extends Controller
      */
     public function create()
     {
-        return view('enterprise/addEnterprise');
+        return view('enterprise/create');
     }
 
     /**
@@ -38,7 +38,7 @@ class EnterpriseController extends Controller
      */
     public function store(EnterpriseRequest $request)
     {
-        $enterprise = Enterprise::create([
+        Enterprise::create([
             'name' => $request->input('name'),
             'full_name' => $request->input('full_name'),
             'updated' => '2015-01-01'
@@ -68,7 +68,7 @@ class EnterpriseController extends Controller
     {
         $enterprise = Enterprise::findOrFail($id);
 
-        return view('enterprise/enterprise', compact('enterprise'));
+        return view('enterprise/show', compact('enterprise'));
     }
 
     /**

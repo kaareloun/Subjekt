@@ -18,8 +18,9 @@
                 <h5>Addresses</h5>
                 <ul>
                 @foreach($enterprise->addresses()->get() as $address)
-                    <li>{{$address->country}}</li>
+                    <li>{{$address->address_type->type_name}}</li>
                     <ul>
+                        <li>{{$address->country}}</li>
                         <li>Country: {{$address->county}}</li>
                         <li>Town/village: {{$address->town_village}}</li>
                         <li>Street address: {{$address->street_address}}</li>
