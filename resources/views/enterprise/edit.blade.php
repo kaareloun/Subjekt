@@ -27,12 +27,6 @@
                     <input type="submit" name="submit" value="Submit">
                 </div>
             </form>
-            <h3>Ettevõttega seotud isikud</h3>
-            @foreach($enterprise->persons()->get() as $person)
-                <div class="">
-                    <b>{{$relations->find($person->pivot->ent_per_relation_type_fk)->type_name}}</b> {{$person->first_name}} {{$person->last_name}}  {{$person->identity_code}} {{$person->birth_date}}
-                </div>
-            @endforeach
 
             <h3>Lisa ettevõttele isikuid</h3>
             <form id="findPerson" class="" action="index.html" method="post">

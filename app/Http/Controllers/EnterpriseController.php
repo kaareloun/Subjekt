@@ -68,8 +68,9 @@ class EnterpriseController extends Controller
     public function show($id)
     {
         $enterprise = Enterprise::findOrFail($id);
+        $relations = Relation::all();
 
-        return view('enterprise/show', compact('enterprise'));
+        return view('enterprise/show', compact('enterprise', 'relations'));
     }
 
     /**
