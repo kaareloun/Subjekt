@@ -32,3 +32,8 @@ Route::post('/address/{id}/update', 'AddressController@update');
 
 //ENTERPRISE
 Route::resource('enterprise', 'EnterpriseController');
+
+//API
+Route::group(['prefix' => 'api'], function () {
+    Route::get('person/{id}', 'API/ApiPersonController@show');
+});
