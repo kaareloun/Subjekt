@@ -22,13 +22,16 @@ Route::get('/person/create', function () {
     return view('addPerson');
 });
 */
+//PERSON
 Route::get('/person/create', 'PersonController@showFormGet');
 Route::post('/person/create', 'PersonController@store');
 Route::get('/person/update/{id}', 'PersonController@showFormUpdateGet');
 Route::post('/person/update/{id}', 'PersonController@storeUpdate');
 Route::get('/person/{id}', 'PersonController@show');
 
+//ADDRESS
 Route::post('/address/{id}/update', 'AddressController@update');
+Route::post('/address/create', 'AddressController@store');
 
 //ENTERPRISE
 Route::resource('enterprise', 'EnterpriseController');

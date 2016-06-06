@@ -95,6 +95,18 @@
     </div>
 @endif
 
+                <br><br><br>Add New Address: <br>
+                <form id="AddNewAddressForm" action="/address/create" method="post">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <input type="hidden" name="subject_fk" value="{{$person['person']}}">
+                    <input type="hidden" name="subject_type_fk" value="1">
+                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<br>
+                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<br>
+                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<br>
+                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<br>
+                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<br>
+                    <input type="submit" value="Submit">
+                </form>
     </body>
     <script>
         function funkts(id){
@@ -103,6 +115,24 @@
             
 
             $( "#address" + id ).show();
+        }
+        
+        function addNewAddress(){
+            var url = "/address/create"; // the script where you handle the form input.
+            $.ajax({
+                type: "POST",
+                url: url,
+                //data: $("#address" + id).serialize(), // serializes the form's elements.
+                data: $("#AddNewAddressForm").serialize(), // serializes the form's elements.
+                success: function(data) {
+                    window.location.reload();
+                },
+                error: function(data) {
+                    var errors = data.responseJSON;
+                    console.log(errors);
+                    
+                }
+            });
         }
 
         function updateAddress(id) {
@@ -152,6 +182,11 @@
                 }
             });
         }
+        
+        $("#AddNewAddressForm").submit(function(e) {
+            e.preventDefault();
+            addNewAddress();
+        });
 
         $(".addressForm").submit(function(e) {
             e.preventDefault();

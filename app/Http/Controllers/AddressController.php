@@ -26,9 +26,11 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
+        
+        
     }
 
     /**
@@ -39,7 +41,25 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'country' => 'required|max:50',
+            'county' => 'required|max:100',
+            'town_village' => 'required|max:100',
+            'street_address' => 'required|max:100',
+            'zipcode' => 'required|max:50',
+        ]);
+        
+        $newAddress = Address::create([ /* v6i return Person::create*/
+            'country' => $request['country'],
+            'county' => $request['county'],
+            'town_village' => $request['town_village'],
+            'street_address' => $request['street_address'],
+            'zipcode' => $request['zipcode'],
+            'subject_fk' => $request['subject_fk'],
+            'subject_type_fk' => $request['subject_type_fk'], // NB SIIN TULEB PARANDUS TEHA VIEWS!!!
+            'address_type_fk' => 2,
+        ]);
+        return response()->json($newAddress);
     }
 
     /**
