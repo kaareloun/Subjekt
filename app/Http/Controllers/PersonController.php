@@ -82,7 +82,8 @@ class PersonController extends Controller
             'address_type_fk' => 1,
         ]);
 
-        dd($request->input('first_name'));
+        
+        return $this->show($personId);
     }
 
     public function storeUpdate(Request $request, $id){
@@ -102,8 +103,8 @@ class PersonController extends Controller
             'updated' => Carbon::now()->toDayDateTimeString(),
         ]);
 
-
-        dd($request->input('first_name'));
+        return $this->show($id);
+        
     }
 
 
@@ -131,6 +132,7 @@ class PersonController extends Controller
         //dd($addresses);
         return view('person/person', compact('person'), compact('addresses'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.

@@ -80,6 +80,21 @@ class AddressController extends Controller
             'street_address' => 'required|max:100',
             'zipcode' => 'required|max:50',
         ]);
+        
+        $subjectId = Address::find($id) -> subject_fk;
+        $subjectAddresses = Address::where('subject_fk',$subjectId)->get();
+        
+        if($request['address_type'] == true){
+            foreach ($subjectAddresses as $subjectAddress) {
+                if($subjectAddress -> address != $id){
+                    $subjectAddress->update([
+                        'address_type_fk' => 2,
+                    ]);
+                }
+            }   
+        }
+
+        
 
         if(Address::find($id)-> address_type_fk == 2){
             if ($request['address_type'] == true){
