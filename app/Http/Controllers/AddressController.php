@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Address;
+use App\Address_type;
 use Validator;
 
 class AddressController extends Controller
@@ -79,18 +80,24 @@ class AddressController extends Controller
             'street_address' => 'required|max:100',
             'zipcode' => 'required|max:50',
         ]);
-        // $validator = Validator::make($request->all(), [
-        //     'country' => 'required|max:50',
-        //     'county' => 'required|max:100',
-        //     'town_village' => 'required|max:100',
-        //     'street_address' => 'required|max:100',
-        //     'zipcode' => 'required|max:50',
-        // ]);
-        //
-        // if ($validator->fails()) {
-        //     return response()->json($validator->messages(), 200);
-        // }
 
+        if(Address::find($id)-> address_type_fk == 2){
+            if ($request['address_type'] == true){
+                $address = Address::find($id)->update([
+                    'address_type_fk' => 1,
+                ]);
+            } else if(Address::find($id) -> subject_type_fk = 2 && $request['address_type'] == true){
+                $address = Address::find($id)->update([
+                    'address_type_fk' => 3,
+                ]);
+            } else{
+                $address = Address::find($id)->update([
+                    'address_type_fk' => 2,
+                ]);
+            }
+        }
+
+        
         $address = Address::find($id)->update([
             'country' => $request['country'],
             'county' => $request['county'],
@@ -98,9 +105,11 @@ class AddressController extends Controller
             'street_address' => $request['street_address'],
             'zipcode' => $request['zipcode'],
         ]);
+        
+        $AddressUpdated = Address::find($id);
 
-        return response()->json(Address::find($id));
-
+        
+        return response()->json(Address::with('Address_type') -> find($id));
     }
 
     /**

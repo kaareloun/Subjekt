@@ -79,6 +79,7 @@
                     linn:<input value="{{ $address['town_village'] }}" type="text" name="town_village"><span class="jsonError" style="display: none" id="linn{{$address->address}}"></span><br>
                     aadress:<input value="{{ $address['street_address'] }}" type="text" name="street_address"><span class="jsonError" style="display: none" id="aadress{{$address->address}}"></span><br>
                     postiindeks:<input value="{{ $address['zipcode'] }}" type="text" name="zipcode"><span class="jsonError" style="display: none" id="postiindeks{{$address->address}}"></span><br>
+                    põhiaadress:<input type="checkbox" id="address_type{{$address['address']}}" name="address_type" @if ($address['address_type'] -> address_type === 1)hidden checked @endif > <div id="mainAddressBool{{$address['address']}}">@if ($address['address_type'] -> address_type === 1)TRUE @endif</div><br>
                     <input type="submit" value="Submit">
                 </form>
 
@@ -111,18 +112,34 @@
                 url: url,
                 data: $("#address" + id).serialize(), // serializes the form's elements.
                 success: function(data) {
+                            console.log(data.country);
+                            console.log(id);
+                            console.log("address_type " + data.address_type_fk);
+                            console.log(data);
                     $(".addressForm").hide();
-                    console.log(data.country);
-                    console.log(id);
-                    $("#1address_type" + id).html(data.address_type);
+                    $("#1address_type" + id).html(data.address_type.type_name);
                     $("#1country" + id).html(data.country);
                     $("#1county" + id).html(data.county);
                     $("#1town_village" + id).html(data.town_village);
                     $("#1street_address" + id).html(data.street_address);
                     $("#1zipcode" + id).html(data.zipcode);
                     
+                    if($("#address_type" + id).prop( "checked", true ) && $("#mainAddressBool"+id).is(':empty')){
+                        console.log("KLJAJNAJADJK");
+                        if(data.address_type_fk == 1 || data.address_type_fk == 3){
+                            $("#address_type" + id).prop( "checked", true );
+                            $("#address_type" + id).prop( "hidden", true );
+                            $(".addressForm").html('');
+                            window.location.reload();
+                        }else{
+                            $("#address_type" + id).prop( "checked", false );
+                            $("#address_type" + id).prop( "hidden", false );
+                        }
+                    }
                     
-
+                    if(data.address_type_fk == 2){
+                        $("#address_type" + id).prop( "checked", false );
+                    }
                 },
                 error: function(data) {
                     var errors = data.responseJSON;
