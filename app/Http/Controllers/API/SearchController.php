@@ -19,11 +19,32 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        if($request['eesnimi']) {
-            $result = Person::where('first_name', 'ilike', '%' . $request['eesnimi'] . '%')->get();
-            return redirect()->back()->with('result', $result);
-            // return redirect('/search')->with($result);
+        switch ($request['subjekt']) {
+            case 1: //isik
+                $searchFields = [];
+                if($request['eesnimi']) {
+                    $searchFields[] = ['first_name', 'ilike', '%' . $request['eesnimi'] . '%'];
+                }
+                if($request['nimi']) {
+                    $searchFields[] = ['last_name', 'ilike', '%' . $request['nimi'] . '%'];
+                }
+                $result = Person::where($searchFields)->get();
+            /*//ettevõte
+            case 2:
+                echo "Your favorite color is blue!";
+                break;
+            //töötaja
+            case 3:
+                echo "Your favorite color is green!";
+                break;
+            //klient
+            case 4:
+                echo "Your favorite color is green!";
+                break;
+            default:
+                echo "Your favorite color is neither red, blue, nor green!";*/
         }
+        return redirect()->back()->with('result', $result);
     }
 
     public function attributes(Request $request)
