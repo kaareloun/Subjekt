@@ -37,10 +37,7 @@ class Person extends Model
     {
         return $this->hasOne('App\Customer', 'subject_fk', 'person')->where('subject_type_fk', '=' , 1);
     }
-<<<<<<< HEAD
 
-=======
-    
     public function attributes()
     {
         $attributes = array();
@@ -52,6 +49,5 @@ class Person extends Model
         $attributes[] = Subject_type::find(1) -> subject_attribute_type() -> get() -> toArray();
         return $attributes;
     }
->>>>>>> origin/master
-    
+
 }
