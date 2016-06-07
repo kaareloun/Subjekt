@@ -12,8 +12,7 @@
 */
 
 Route::get('/', function () {
-    $employee = App\Employee::find(1);
-    return view('welcome', compact('employee'));
+    return view('welcome');
 });
 
 //PERSON

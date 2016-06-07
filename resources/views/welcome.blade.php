@@ -3,7 +3,7 @@
     <head>
         <title>Laravel</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
@@ -15,7 +15,7 @@
                 padding: 0;
                 width: 100%;
                 display: table;
-                font-weight: 100;
+                font-weight: 300;
                 font-family: 'Lato';
             }
 
@@ -38,11 +38,14 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Subjektid</div>
+                <div class="">
+                    <a href="/person">Isikud</a>
+                    <a href="/person/create">Lisa isik</a>
+                    <a href="/enterprise">Ettevõtted</a>
+                    <a href="/enterprise/create">Lisa Ettevõte</a>
+                </div>
             </div>
-        </div>
-        <div class="">
-            {{print_r($employee)}}
         </div>
     </body>
 </html>
