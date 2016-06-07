@@ -31,11 +31,11 @@ class Person extends Model
     {
         return $this->belongsToMany('App\Enterprise', 'enterprise_person_relation', 'person_fk', 'enterprise_fk');
     }
-    
+
     public function customer()
     {
         return $this->hasOne('App\Customer', 'subject_fk', 'person')->where('subject_type_fk', '=' , 1);
     }
-    
+
     
 }
