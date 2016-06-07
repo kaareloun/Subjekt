@@ -100,11 +100,11 @@
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <input type="hidden" name="subject_fk" value="{{$person['person']}}">
                     <input type="hidden" name="subject_type_fk" value="1">
-                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<br>
-                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<br>
-                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<br>
-                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<br>
-                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<br>
+                    riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<span class="jsonErrorUUS" id="riikUUS"></span><br>
+                    maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<span class="jsonErrorUUS" id="maakondUUS"></span><br>
+                    linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<span class="jsonErrorUUS" id="linnUUS"></span><br>
+                    aadress:<input value="{{old('street_address')}}" type="text" name="street_address">{{$errors->first('street_address')}}<span class="jsonErrorUUS" id="aadressUUS"></span><br>
+                    postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">{{$errors->first('zipcode')}}<span class="jsonErrorUUS" id="postiindeksUUS"></span><br>
                     <input type="submit" value="Submit">
                 </form>
     </body>
@@ -118,6 +118,11 @@
         }
         
         function addNewAddress(){
+            $("#riikUUS").html("");
+            $("#maakondUUS").html("");
+            $("#linnUUS").html("");
+            $("#aadressUUS").html("");
+            $("#postiindeksUUS").html("");
             var url = "/address/create"; // the script where you handle the form input.
             $.ajax({
                 type: "POST",
@@ -130,6 +135,12 @@
                 error: function(data) {
                     var errors = data.responseJSON;
                     console.log(errors);
+                    $("#riikUUS").html(errors.country);
+                    $("#maakondUUS").html(errors.county);
+                    $("#linnUUS").html(errors.town_village);
+                    $("#aadressUUS").html(errors.street_address);
+                    $("#postiindeksUUS").html(errors.zipcode);
+                    $(".jsonErrorUUS").show();
                     
                 }
             });
