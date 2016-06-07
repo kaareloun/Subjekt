@@ -82,7 +82,7 @@ class PersonController extends Controller
             'address_type_fk' => 1,
         ]);
 
-        
+
         return $this->show($personId);
     }
 
@@ -94,11 +94,11 @@ class PersonController extends Controller
             'identity_code' => 'required|max:20',
         ]);
 
-        
+
         if($request['customer'] == true){
             $person11 = Person::find($id);
-            if(!$person11::has('customer')->get()){
-                dd("JKAGDFHGJKLÖASDJ");
+            if(count($person11->customer()->get()->toArray()) == 0) {
+                dd("TOOTAB");
             }
         }
 
@@ -110,8 +110,8 @@ class PersonController extends Controller
             'updated' => Carbon::now()->toDayDateTimeString(),
         ]);
 
-        return $this->show($id);
-        
+        return redirect('/person/' . $id);
+
     }
 
 
@@ -140,7 +140,7 @@ class PersonController extends Controller
         //dd($person -> customer()->get());
         return view('person/person', compact('person'), compact('addresses'));
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
