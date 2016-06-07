@@ -7,6 +7,7 @@ use App\Person;
 use App\Customer;
 use App\Address;
 use Carbon\Carbon;
+use App\Subject_type;
 use App\Http\Requests\personRequest;
 
 use App\Http\Requests;
@@ -20,7 +21,8 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        $subjectTypes = Subject_type::all();
+        return view('person/search', compact('subjectTypes'));
     }
 
     /**
@@ -106,14 +108,14 @@ class PersonController extends Controller
                 ]);
             }
         }
-        
+
         if($request['customer'] == false){
             $person11 = Person::find($id);
             if(count($person11->customer()->get()->toArray()) != 0) {
                $person11 -> customer() -> delete();
             }
         }
-        
+
         //CUSTOMER L6PP
 
         Person::find($id) -> update([
