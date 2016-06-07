@@ -8,6 +8,8 @@ class Subject_attribute_type extends Model
 {
     protected $primaryKey = 'subject_attribute_type';
     protected $table = 'subject_attribute_type';
+    
+    public $timestamps  = false;
     /**
      * The attributes that are mass assignable.
      *
