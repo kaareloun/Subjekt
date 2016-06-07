@@ -21,13 +21,6 @@
                         <div id="lisavaljad">
 
                         </div>
-                        @foreach($subjectTypes as $subjectType)
-                            @foreach($subjectType->subject_attribute_type()->get() as $c)
-                                <div class="input-group">
-                                    {{$c->type_name}}:<input type="text" name="{{$c->type_name}}">
-                                </div>
-                            @endforeach
-                        @endforeach
                         <div class="input-group">
                             Subjekti tüüp:
                             <select id="subjektSelect" class="" name="subjekt">
@@ -40,11 +33,37 @@
                             <input type="submit" value="Otsi">
                         </div>
                     </form>
+                    @if(isset($result))
+                        {{dd($result)}}
+                    @endif
                 </div>
             </div>
         </div>
     </body>
     <script>
+        $(function() {
+            var url = "/api/search/attributes"; // the script where you handle the form input.
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: 'subjectType=' + 1, // serializes the form's elements.
+                success: function(data) {
+                    console.log(data);
+                    var result = "";
+                    $.each( data, function( key, value ) {
+                        result += "<div class='input-group'>";
+                        result += value['type_name'] + "<input name='" + value['type_name'] + "' type='text'>";
+                        result += "</div>";
+                    });
+                    result += "</div>";
+                    $('#lisavaljad').html(result);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+
         $( "#subjektSelect" ).change(function() {
             var url = "/api/search/attributes"; // the script where you handle the form input.
             $.ajax({
@@ -53,6 +72,14 @@
                 data: 'subjectType=' + $("#subjektSelect option:selected").val(), // serializes the form's elements.
                 success: function(data) {
                     console.log(data);
+                    var result = "";
+                    $.each( data, function( key, value ) {
+                        result += "<div class='input-group'>";
+                        result += value['type_name'] + "<input name='" + value['type_name'] + "' type='text'>";
+                        result += "</div>";
+                    });
+                    result += "</div>";
+                    $('#lisavaljad').html(result);
                 },
                 error: function(data) {
                     console.log(data);

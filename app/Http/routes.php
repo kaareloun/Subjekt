@@ -27,7 +27,6 @@ Route::post('/person/create', 'PersonController@store');
 Route::get('/person/update/{id}', 'PersonController@showFormUpdateGet');
 Route::post('/person/update/{id}', 'PersonController@storeUpdate');
 Route::get('/person/{id}', 'PersonController@show');
-Route::get('/person', 'PersonController@index');
 
 
 //ADDRESS
@@ -37,10 +36,13 @@ Route::post('/address/create', 'AddressController@store');
 //ENTERPRISE
 Route::resource('enterprise', 'EnterpriseController');
 
+//SEARCH
+Route::get('/search', 'API\SearchController@index');
+
 //API
 Route::group(['prefix' => 'api'], function () {
     Route::post('/person/link', 'API\ApiPersonController@link');
     Route::get('/person', 'API\ApiPersonController@show');
-    Route::get('/search/attributes', 'SearchController@attributes');
-    Route::get('/search', 'SearchController@search');
+    Route::get('/search/attributes', 'API\SearchController@attributes');
+    Route::get('/search', 'API\SearchController@search');
 });

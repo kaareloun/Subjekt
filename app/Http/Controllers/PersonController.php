@@ -21,8 +21,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $subjectTypes = Subject_type::all();
-        return view('person/search', compact('subjectTypes'));
+        
     }
 
     /**
