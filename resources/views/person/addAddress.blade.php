@@ -9,9 +9,9 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="">       
-                    
-                   
+                <div class="">
+
+
                     Addresses:
                         <div>
                             <table border="1">
@@ -35,7 +35,7 @@
                                 @endforeach
                             </table>
                         </div>
-                    
+
                 </form>
             </div>
         </div>
@@ -69,8 +69,8 @@
                 <br><br><br>Add New Address: <br>
                 <form id="AddNewAddressForm" action="/address/create" method="post">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                    <input type="hidden" name="subject_fk" value="{{$person['person']}}">
-                    <input type="hidden" name="subject_type_fk" value="1">
+                    <input type="hidden" name="subject_fk" value="{{ isset($person) ? $person['person'] : $enterprise['enterprise'] }}">
+                    <input type="hidden" name="subject_type_fk" value="{{ isset($person) ? 1 : 2 }}">
                     riik:<input value="{{old('country')}}" type="text" name="country">{{$errors->first('country')}}<span class="jsonErrorUUS" id="riikUUS"></span><br>
                     maakond:<input value="{{old('county')}}" type="text" name="county">{{$errors->first('county')}}<span class="jsonErrorUUS" id="maakondUUS"></span><br>
                     linn:<input value="{{old('town_village')}}" type="text" name="town_village">{{$errors->first('town_village')}}<span class="jsonErrorUUS" id="linnUUS"></span><br>
@@ -87,11 +87,11 @@
         function funkts(id){
             $(".addressForm").hide();
 
-            
+
 
             $( "#address" + id ).show();
         }
-        
+
         function addNewAddress(){
             $("#riikUUS").html("");
             $("#maakondUUS").html("");
@@ -116,7 +116,7 @@
                     $("#aadressUUS").html(errors.street_address);
                     $("#postiindeksUUS").html(errors.zipcode);
                     $(".jsonErrorUUS").show();
-                    
+
                 }
             });
         }
@@ -139,7 +139,7 @@
                     $("#1town_village" + id).html(data.town_village);
                     $("#1street_address" + id).html(data.street_address);
                     $("#1zipcode" + id).html(data.zipcode);
-                    
+
                     if($("#address_type" + id).prop( "checked", true ) && $("#mainAddressBool"+id).is(':empty')){
                         console.log("KLJAJNAJADJK");
                         if(data.address_type_fk == 1 || data.address_type_fk == 3){
@@ -152,7 +152,7 @@
                             $("#address_type" + id).prop( "hidden", false );
                         }
                     }
-                    
+
                     if(data.address_type_fk == 2){
                         $("#address_type" + id).prop( "checked", false );
                     }
@@ -168,7 +168,7 @@
                 }
             });
         }
-        
+
         $("#AddNewAddressForm").submit(function(e) {
             e.preventDefault();
             addNewAddress();

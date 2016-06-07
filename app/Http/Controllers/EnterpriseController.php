@@ -83,8 +83,9 @@ class EnterpriseController extends Controller
     {
         $enterprise = Enterprise::findOrFail($id);
         $relations = Relation::all();
+        $addresses = $enterprise->addresses();
 
-        return view('enterprise/edit', compact('enterprise', 'relations'));
+        return view('enterprise/edit', compact('enterprise', 'relations', 'addresses'));
     }
 
     /**

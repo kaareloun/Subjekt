@@ -43,6 +43,8 @@
             <div id="result">
 
             </div>
+
+            @include('person/addAddress')
         </div>
     </div>
 </body>
