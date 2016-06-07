@@ -50,7 +50,7 @@
                     linn:<input value="{{ $address['town_village'] }}" type="text" name="town_village"><span class="jsonError" style="display: none" id="linn{{$address->address}}"></span><br>
                     aadress:<input value="{{ $address['street_address'] }}" type="text" name="street_address"><span class="jsonError" style="display: none" id="aadress{{$address->address}}"></span><br>
                     postiindeks:<input value="{{ $address['zipcode'] }}" type="text" name="zipcode"><span class="jsonError" style="display: none" id="postiindeks{{$address->address}}"></span><br>
-                    põhiaadress:<input type="checkbox" id="address_type{{$address['address']}}" name="address_type" @if ($address['address_type'] -> address_type === 1)hidden checked @endif > <span id="mainAddressBool{{$address['address']}}">@if ($address['address_type'] -> address_type === 1)TRUE @endif</span><br>
+                    põhiaadress:<input type="checkbox" id="address_type{{$address['address']}}" name="address_type" @if ($address['address_type'] -> address_type === 1 || $address['address_type'] -> address_type === 3)hidden checked @endif > <span id="mainAddressBool{{$address['address']}}">@if ($address['address_type'] -> address_type === 1 || $address['address_type'] -> address_type === 3)TRUE @endif</span><br>
                     <input type="submit" value="Submit">
                 </form>
 
