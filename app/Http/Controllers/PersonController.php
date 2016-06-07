@@ -130,6 +130,7 @@ class PersonController extends Controller
         $person = Person::findOrFail($id);
         $addresses = $person -> addresses();
         //dd($addresses);
+        //dd($person -> customer()->get());
         return view('person/person', compact('person'), compact('addresses'));
     }
     

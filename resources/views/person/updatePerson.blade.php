@@ -38,6 +38,7 @@
                             <td>{{$errors->first('birth_date')}}</td>
                         </tr>
                     </table>
+                    Customer <input type="checkbox" name="customer"><br>
                     <input type="submit" value="Submit">
 
                     <br><br><br><br>
