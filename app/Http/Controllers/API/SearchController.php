@@ -20,9 +20,9 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         if($request['eesnimi']) {
-            $result = Person::where('first_name', 'ilike', '%' . $request['eesnimi'] . '%')->firstOrFail();
-            //TODO: REDIRECT ERROR
-            return redirect('/search')->with($result);
+            $result = Person::where('first_name', 'ilike', '%' . $request['eesnimi'] . '%')->get();
+            return redirect()->back()->with('result', $result);
+            // return redirect('/search')->with($result);
         }
     }
 

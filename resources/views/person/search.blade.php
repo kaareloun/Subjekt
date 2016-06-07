@@ -33,9 +33,15 @@
                             <input type="submit" value="Otsi">
                         </div>
                     </form>
-                    @if(isset($result))
-                        {{dd($result)}}
+
+                    @if(session()->has('result'))
+                        @foreach(session('result') as $item)
+                            <div><b>{{$item->first_name}} {{$item->last_name}}</b></div>
+                            <div>Isikukood:{{$item->identity_code}}</div>
+                            <div>Sündinud:{{$item->birth_date}}</div>
+                        @endforeach
                     @endif
+
                 </div>
             </div>
         </div>
