@@ -39,23 +39,25 @@
                         </tr>
                     </table>
                     Customer <input type="checkbox" name="customer" @if ($person['customer']) checked @endif><br>
-                    <input type="submit" value="Submit">
-
-                    @foreach ($person -> attributes() as $attribute)
+                    @foreach ($person -> subject_attributes() as $attribute)
                         @for ($i = 0; $i < count($attribute); $i++)
-                            <p>atribuut <b>{{ $attribute[$i]['type_name'] }}</b> :<input type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}"> </p>
+                            <p>atribuut <b>{{ $attribute[$i]['type_name'] }}</b> :<input value="@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif" type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}"> </p>
                         @endfor
                     @endforeach
-                
-                
-                
-                
-                
-                    @foreach ($person -> attributes() as $attribute)
-                            <p>This is user {{ print_r($attribute) }}</p>
-                    @endforeach
+                    <br><input type="submit" value="Submit">
+
                     
-                    <br><br><br><br>
+                    
+                    
+                    
+                    <br><br><br>
+                    <?php 
+                        $collection1 = collect($person -> subject_attributes());
+                        echo $collection1;
+                    ?>
+                    <br><br><br>
+                
+                
 
 
 

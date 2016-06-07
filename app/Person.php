@@ -69,7 +69,32 @@ class Person extends Model
     }
     public function subject_attributes()
     {
-        return Subject_type::find(4)->subject_attribute_type()->join('subject_attribute', 'subject_attribute_type.subject_attribute_type', '=', 'subject_attribute.subject_attribute_type_fk')->get();
+        $subject_attributes = array();
+        try{
+            $subject = $this -> customer() -> firstOrFail() -> customer;
+            if($subject){
+                //App\Subject_type::find(4) -> subject_attribute_type() -> get()
+                $subject_attributes[] = Subject_type::find(4)->subject_attribute_type()->join('subject_attribute', 'subject_attribute_type.subject_attribute_type', '=', 'subject_attribute.subject_attribute_type_fk')->where('subject_fk', '=' , $subject)->get();
+            }
+        }catch(\Exception $e){}
+        
+
+        try{
+            $subjectEmployee = $this -> employee() -> firstOrFail() -> person_fk;
+            if($subjectEmployee){
+                //App\Subject_type::find(4) -> subject_attribute_type() -> get()
+                $subject_attributes[] = Subject_type::find(3)->subject_attribute_type()->join('subject_attribute', 'subject_attribute_type.subject_attribute_type', '=', 'subject_attribute.subject_attribute_type_fk')->where('subject_fk', '=' , $subjectEmployee)->get();
+            }
+        } catch(\Exception $e){}
+        
+        
+        $subject_attributes[] = Subject_type::find(1)->subject_attribute_type()->join('subject_attribute', 'subject_attribute_type.subject_attribute_type', '=', 'subject_attribute.subject_attribute_type_fk')->where('subject_fk', '=' , $this -> person)->get();
+
+        
+        
+        
+        return $subject_attributes;
+        //return Subject_type::find(4)->subject_attribute_type()->join('subject_attribute', 'subject_attribute_type.subject_attribute_type', '=', 'subject_attribute.subject_attribute_type_fk')->get();
     }
 
 }
