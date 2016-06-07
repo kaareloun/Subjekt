@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Person;
+use App\Customer;
 use App\Address;
 use Carbon\Carbon;
 use App\Http\Requests\personRequest;
@@ -94,13 +95,26 @@ class PersonController extends Controller
             'identity_code' => 'required|max:20',
         ]);
 
+        // CUSTOMER ALGUS
 
         if($request['customer'] == true){
             $person11 = Person::find($id);
             if(count($person11->customer()->get()->toArray()) == 0) {
-                dd("TOOTAB");
+                Customer::create([
+                    'subject_fk' => $person11 -> person,
+                    'subject_type_fk' => '1',
+                ]);
             }
         }
+        
+        if($request['customer'] == false){
+            $person11 = Person::find($id);
+            if(count($person11->customer()->get()->toArray()) != 0) {
+               $person11 -> customer() -> delete();
+            }
+        }
+        
+        //CUSTOMER L6PP
 
         Person::find($id) -> update([
             'first_name' => $request['first_name'],

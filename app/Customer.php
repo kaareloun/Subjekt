@@ -8,6 +8,8 @@ class Customer extends Model
 {
     protected $primaryKey = 'customer';
     protected $table = 'customer';
+    
+    public $timestamps  = false;
     /**
      * The attributes that are mass assignable.
      *
