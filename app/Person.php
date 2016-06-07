@@ -37,6 +37,11 @@ class Person extends Model
     {
         return $this->hasOne('App\Customer', 'subject_fk', 'person')->where('subject_type_fk', '=' , 1);
     }
+    
+    public function employee()
+    {
+        return $this->hasOne('App\Employee', 'person_fk', 'person');
+    }
 
     public function attributes()
     {
@@ -48,6 +53,17 @@ class Person extends Model
                 $attributes[] = Subject_type::find(4) -> subject_attribute_type() -> get() -> toArray();
             }
         } catch(\Exception $e){}
+    
+        
+        try{
+            $subjectEmployee = $this -> employee() -> firstOrFail() -> person_fk;
+            if($subjectEmployee){
+                //App\Subject_type::find(4) -> subject_attribute_type() -> get()
+                $attributes[] = Subject_type::find(3) -> subject_attribute_type() -> get() -> toArray();
+            }
+        } catch(\Exception $e){}
+        
+        
         $attributes[] = Subject_type::find(1) -> subject_attribute_type() -> get() -> toArray();
         return $attributes;
     }
