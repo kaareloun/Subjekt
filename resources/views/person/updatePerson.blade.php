@@ -10,8 +10,23 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        
+        
+        function populateAttributes(){
+            console.log("populate");
+                    @foreach ($person -> subject_attributes() as $attribute)
+                        @for ($i = 0; $i < count($attribute); $i++)
+                            //{{ $attribute[$i]['type_name'] }}</b> :<input value="@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif" type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}">
+                        
+                            document.getElementById("{{$attribute[$i]['subject_attribute_type']}}").value = "@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif";
+                        @endfor
+                    @endforeach
+        }
+            
+    </script>
     </head>
-    <body>
+    <body onload="populateAttributes()">
         <div class="container">
             <div class="content">
                 <form class="" method="post">
@@ -39,26 +54,15 @@
                         </tr>
                     </table>
                     Customer <input type="checkbox" name="customer" @if ($person['customer']) checked @endif><br>
-                    @foreach ($person -> subject_attributes() as $attribute)
+                    @foreach ($person -> attributes() as $attribute)
                         @for ($i = 0; $i < count($attribute); $i++)
-                            <p>atribuut <b>{{ $attribute[$i]['type_name'] }}</b> :<input value="@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif" type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}"> </p>
+                            <p>atribuut <b>{{ $attribute[$i]['type_name'] }}</b> :<input type="text" id="{{ $attribute[$i]['subject_attribute_type'] }}" name="{{ $attribute[$i]['subject_attribute_type'] }}"> </p>
                         @endfor
                     @endforeach
                     <br><input type="submit" value="Submit">
 
                     
                     
-                    
-                    
-                    <br><br><br>
-                    <?php 
-                        $collection1 = collect($person -> subject_attributes());
-                        echo $collection1;
-                    ?>
-                    <br><br><br>
-                
-                
-
 
 
 @include('person.addAddress')

@@ -118,6 +118,7 @@ class PersonController extends Controller
 
         //CUSTOMER L6PP
 
+        
         Person::find($id) -> update([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
@@ -125,6 +126,21 @@ class PersonController extends Controller
             'birth_date' => $request['birth_date'],
             'updated' => Carbon::now()->toDayDateTimeString(),
         ]);
+        $personAttributes = Person::find($id) -> subject_attributesCollection();
+        
+        foreach($personAttributes as $personAttribute){
+            $personAttributeType = $personAttribute -> subject_attribute_type;
+            echo $personAttributeType;
+            echo '<br>';
+            
+            
+        }
+        
+
+        dd($personAttributes);
+        
+        
+
 
         return redirect('/person/' . $id);
 
