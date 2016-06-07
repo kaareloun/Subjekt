@@ -41,6 +41,20 @@
                     Customer <input type="checkbox" name="customer" @if ($person['customer']) checked @endif><br>
                     <input type="submit" value="Submit">
 
+                    @foreach ($person -> attributes() as $attribute)
+                        @for ($i = 0; $i < count($attribute); $i++)
+                            <p>atribuut <b>{{ $attribute[$i]['type_name'] }}</b> :<input type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}"> </p>
+                        @endfor
+                    @endforeach
+                
+                
+                
+                
+                
+                    @foreach ($person -> attributes() as $attribute)
+                            <p>This is user {{ print_r($attribute) }}</p>
+                    @endforeach
+                    
                     <br><br><br><br>
 
 

@@ -41,13 +41,19 @@ class Person extends Model
     public function attributes()
     {
         $attributes = array();
-        $subject = $this -> customer() -> first() -> subject_type_fk;
-        if($subject){
-            //App\Subject_type::find(4) -> subject_attribute_type() -> get()
-            $attributes[] = Subject_type::find(4) -> subject_attribute_type() -> get() -> toArray();
-        }
+        try{
+            $subject = $this -> customer() -> firstOrFail() -> subject_type_fk;
+            if($subject){
+                //App\Subject_type::find(4) -> subject_attribute_type() -> get()
+                $attributes[] = Subject_type::find(4) -> subject_attribute_type() -> get() -> toArray();
+            }
+        } catch(\Exception $e){}
         $attributes[] = Subject_type::find(1) -> subject_attribute_type() -> get() -> toArray();
         return $attributes;
+    }
+    public function subject_attributes()
+    {
+        
     }
 
 }
