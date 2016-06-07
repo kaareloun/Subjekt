@@ -38,7 +38,7 @@
                             <td>{{$errors->first('birth_date')}}</td>
                         </tr>
                     </table>
-                    Customer <input type="checkbox" name="customer"><br>
+                    Customer <input type="checkbox" name="customer" @if ($person['customer']) checked @endif><br>
                     <input type="submit" value="Submit">
 
                     <br><br><br><br>

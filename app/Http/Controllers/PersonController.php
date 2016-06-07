@@ -94,6 +94,13 @@ class PersonController extends Controller
             'identity_code' => 'required|max:20',
         ]);
 
+        
+        if($request['customer'] == true){
+            $person11 = Person::find($id);
+            if(!$person11::has('customer')->get()){
+                dd("JKAGDFHGJKLÖASDJ");
+            }
+        }
 
         Person::find($id) -> update([
             'first_name' => $request['first_name'],
