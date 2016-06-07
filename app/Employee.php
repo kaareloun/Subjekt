@@ -8,6 +8,7 @@ class Employee extends Model
 {
     protected $primaryKey = 'employee';
     protected $table = 'employee';
+    public $timestamps  = false;
     /**
      * The attributes that are mass assignable.
      *
