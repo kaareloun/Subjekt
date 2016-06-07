@@ -40,7 +40,7 @@
                     postiindeks:<input value="{{old('zipcode')}}" type="text" name="zipcode">
                     {{$errors->first('zipcode')}}
                 </div>
-                
+
                 <div class="input-group">
                     <input type="submit" name="submit" value="Submit">
                 </div>
