@@ -37,6 +37,17 @@ class PersonController extends Controller
         //
     }
 
+    public function createUser(personRequest $request)
+    {
+    
+    }
+    
+    public function showUserForm(){
+    
+    }
+    
+    
+    
     /**
      * Store a newly created resource in storage.
      *
