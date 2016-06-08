@@ -63,7 +63,6 @@
 
                     @if($person -> employee() -> first())
                         <p>Kasutaja konto: <a href="/addUser/{{$person -> employee() -> first() -> employee}}">loo/vaata</a></p>
-                        <p>{{$person -> employee() -> first() -> employee}}</p>
                     @endif        
                     
 

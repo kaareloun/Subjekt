@@ -8,6 +8,8 @@ class User_account extends Model
 {
     protected $primaryKey = 'user_account';
     protected $table = 'user_account';
+    
+    public $timestamps  = false;
     /**
      * The attributes that are mass assignable.
      *
