@@ -19,7 +19,7 @@
                         @for ($i = 0; $i < count($attribute); $i++)
                             //{{ $attribute[$i]['type_name'] }}</b> :<input value="@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif" type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}">
                         
-                            document.getElementById("{{$attribute[$i]['subject_attribute_type']}}").value = "@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif";
+                            document.getElementById("{{$attribute[$i]['subject_attribute_type']}}").value = "@if($attribute[$i]['data_type'] == 1){{$attribute[$i]['value_text']}}@elseif($attribute[$i]['data_type'] == 3){{$attribute[$i]['value_date']}}@elseif($attribute[$i]['data_type'] == 2){{$attribute[$i]['value_number']}}@endif";
                         @endfor
                     @endforeach
         }

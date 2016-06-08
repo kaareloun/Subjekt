@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Person;
 use App\Customer;
+use App\Enterprise;
+use App\Employee;
 use App\Address;
 use Carbon\Carbon;
 use App\Subject_type;
+use App\Subject_attribute;
 use App\Http\Requests\personRequest;
 
 use App\Http\Requests;
@@ -126,21 +129,79 @@ class PersonController extends Controller
             'updated' => Carbon::now()->toDayDateTimeString(),
         ]);
         $personAttributes = Person::find($id) -> subject_attributesCollection();
-        
-        foreach($personAttributes as $personAttribute){
-            $personAttributeType = $personAttribute -> subject_attribute_type;
-            echo $personAttributeType;
-            echo '<br>';
-            
-            
+        $personAttributesAll = Person::find($id) -> attributesCollection();
+        foreach($personAttributesAll as $personAttribute){
+            $existBool = false;
+            $personAttributeName = $personAttribute -> type_name;
+            foreach($personAttributes as $personAttributeSet){
+                if($personAttribute -> type_name == $personAttributeSet -> type_name)
+                {
+                    if($personAttributeSet -> data_type == 2){    
+                        Subject_attribute::find($personAttributeSet -> subject_attribute) -> update([
+                            'value_number' => $request[$personAttributeSet -> subject_attribute_type],
+                        ]);
+                        $existBool = true;
+                    } else if($personAttributeSet -> data_type == 3){  
+                        Subject_attribute::find($personAttributeSet -> subject_attribute) -> update([
+                            'value_date' => $request[$personAttributeSet -> subject_attribute_type],
+                        ]);
+                        $existBool = true;
+                    }else{
+                        Subject_attribute::find($personAttributeSet -> subject_attribute) -> update([
+                            'value_text' => $request[$personAttributeSet -> subject_attribute_type],
+                        ]);
+                        $existBool = true;
+                    }
+                }
+            }
+            if($existBool === false && $request[$personAttribute -> subject_attribute_type]){
+                $personIdWithType;
+                /*
+                    CUSTOMER FINDIS VAJA TEIST TYPE_FK-d kui teha enterprisele
+                */
+                if($personAttribute -> subject_type_fk == 4){
+                    $personIdWithType = Customer::where('subject_type_fk','=','1') -> where('subject_fk','=',Person::find($id)->person) -> first() -> customer;
+                }else if($personAttribute -> subject_type_fk == 3){
+                    $personIdWithType = Employee::where('person_fk','=', Person::find($id)->person) -> first() -> employee;
+                }else if($personAttribute -> subject_type_fk == 2){
+                    
+                }else if($personAttribute -> subject_type_fk == 1){
+                    $personIdWithType = Person::find($id) -> person;
+                }
+                
+                
+                if($personAttribute -> data_type == 1){
+                        Subject_attribute::create([
+                        'subject_fk' => $personIdWithType,
+                        'subject_attribute_type_fk' => $personAttribute -> subject_attribute_type,
+                        'subject_type_fk' => $personAttribute -> subject_type_fk,
+                        'value_text' => $request[$personAttribute -> subject_attribute_type],
+                        'data_type' => 1,
+                        ]);
+                } else if($personAttribute -> data_type == 2){
+                        Subject_attribute::create([
+                        'subject_fk' => $personIdWithType,
+                        'subject_attribute_type_fk' => $personAttribute -> subject_attribute_type,
+                        'subject_type_fk' => $personAttribute -> subject_type_fk,
+                        'value_number' => $request[$personAttribute -> subject_attribute_type],
+                        'data_type' => 2,
+                        ]);
+                } else if($personAttribute -> data_type == 3){
+                        Subject_attribute::create([
+                        'subject_fk' => $personIdWithType,
+                        'subject_attribute_type_fk' => $personAttribute -> subject_attribute_type,
+                        'subject_type_fk' => $personAttribute -> subject_type_fk,
+                        'value_date' => $request[$personAttribute -> subject_attribute_type],
+                        'data_type' => 3,
+                        ]);
+                } 
+
+            }
         }
         
-
-        dd($personAttributes);
+      
         
-        
-
-
+        //dd($personAttributesAll);
         return redirect('/person/' . $id);
 
     }

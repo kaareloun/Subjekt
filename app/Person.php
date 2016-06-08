@@ -67,6 +67,44 @@ class Person extends Model
         $attributes[] = Subject_type::find(1) -> subject_attribute_type() -> get() -> toArray();
         return $attributes;
     }
+    
+    public function attributesCollection()
+    {
+        $subject_attributes = array();
+        $subject_attributesCollection = new \Illuminate\Database\Eloquent\Collection;
+        try{
+            $subject = $this -> customer() -> firstOrFail() -> customer;
+            if($subject){
+                //App\Subject_type::find(4) -> subject_attribute_type() -> get()
+                $subject_attributes1 = Subject_type::find(4) -> subject_attribute_type() -> get();
+                    foreach($subject_attributes1 as $subject_attribute1){
+                    $subject_attributesCollection -> add($subject_attribute1);
+                }
+            }
+        }catch(\Exception $e){}
+
+
+        try{
+            $subjectEmployee = $this -> employee() -> firstOrFail() -> person_fk;
+            if($subjectEmployee){
+                //App\Subject_type::find(4) -> subject_attribute_type() -> get()
+                $subject_attributes2 = Subject_type::find(3) -> subject_attribute_type() -> get();
+                    foreach($subject_attributes2 as $subject_attribute2){
+                    $subject_attributesCollection -> add($subject_attribute2);
+                }
+            }
+        } catch(\Exception $e){}
+
+
+        $subject_attributes3 = Subject_type::find(1) -> subject_attribute_type() -> get();
+                    foreach($subject_attributes3 as $subject_attribute3){
+                    $subject_attributesCollection -> add($subject_attribute3);
+                }
+
+        return $subject_attributesCollection;
+        //return Subject_type::find(4)->subject_attribute_type()->join('subject_attribute', 'subject_attribute_type.subject_attribute_type', '=', 'subject_attribute.subject_attribute_type_fk')->get();
+    }
+        
 
     public function subject_attributes()
     {
