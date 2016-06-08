@@ -38,6 +38,9 @@ Route::get('/', function () {
 
     //SEARCH
     Route::get('/search', 'API\SearchController@index');
+    
+    //USER
+    Route::get('/addUser/{id}', 'RegisterController@showForm');
 
     //API
     Route::group(['prefix' => 'api'], function () {
