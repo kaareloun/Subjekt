@@ -6,6 +6,7 @@ use App\Http\Requests\EnterpriseRequest;
 use Illuminate\Http\Request;
 use App\Enterprise;
 use App\Ent_Per_Relation_Type as Relation;
+use App\Address;
 
 use App\Http\Requests;
 
@@ -39,13 +40,13 @@ class EnterpriseController extends Controller
      */
     public function store(EnterpriseRequest $request)
     {
-        Enterprise::create([
+        $enterprise = Enterprise::create([
             'name' => $request->input('name'),
             'full_name' => $request->input('full_name'),
             'updated' => '2015-01-01'
         ]);
 
-        Address::create([
+        $address = Address::create([
             'country' => $request['country'],
             'county' => $request['county'],
             'town_village' => $request['town_village'],
@@ -55,8 +56,7 @@ class EnterpriseController extends Controller
             'subject_type_fk' => 2,
             'address_type_fk' => 3,
         ]);
-
-        return redirect('enterprise/create');
+        return redirect('enterprise/' . $enterprise->enterprise);
     }
 
     /**
