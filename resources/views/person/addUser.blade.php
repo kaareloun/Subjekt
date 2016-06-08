@@ -10,7 +10,8 @@
         <div class="container">
             <div class="content">
                 <div class="">                           
-                <form action="create" method="post">
+                <form method="post">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 Create user account for employee:<br>
                 <input type="text" name="subject_type_fk" value="3" hidden>
                 <input type="text" name="subject_fk" value="{{$employee -> employee}}" hidden>

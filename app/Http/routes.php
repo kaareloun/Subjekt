@@ -41,6 +41,7 @@ Route::get('/', function () {
 
     //USER
     Route::get('/addUser/{id}', 'RegisterController@showForm');
+    Route::post('/addUser/{id}', 'RegisterController@createUser');
 
     //API
     Route::group(['prefix' => 'api'], function () {

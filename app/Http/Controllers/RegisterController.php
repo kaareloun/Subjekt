@@ -19,4 +19,8 @@ class RegisterController extends Controller
         return view('person/addUser', compact('employee'));
     }
     
+    public function createUser(){
+        dd("ADADASDASDAD");
+    }
+    
 }
