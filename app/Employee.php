@@ -26,4 +26,9 @@ class Employee extends Model
     protected $hidden = [
 
     ];
+
+    public function person()
+    {
+        return $this->hasOne('App\Person', 'person_fk', 'person');
+    }
 }

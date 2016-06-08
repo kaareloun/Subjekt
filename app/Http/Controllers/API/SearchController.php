@@ -10,6 +10,7 @@ use App\Subject_type;
 use App\Person;
 use App\Enterprise;
 use App\Employee;
+use App\Customer;
 
 class SearchController extends Controller
 {
@@ -22,9 +23,9 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $searchFields = [];
-
         switch ($request['subjekt']) {
-            case 1: //isik
+            //isik
+            case "1":
                 if($request['eesnimi']) {
                     $searchFields[] = ['first_name', 'ilike', '%' . $request['eesnimi'] . '%'];
                 }
@@ -32,31 +33,92 @@ class SearchController extends Controller
                     $searchFields[] = ['last_name', 'ilike', '%' . $request['nimi'] . '%'];
                 }
                 $result = Person::where($searchFields)->get();
+                break;
             //ettevõte
-            case 2:
+            case "2":
                 if($request['nimi']) {
                     $searchFields[] = ['full_name', 'ilike', '%' . $request['nimi'] . '%'];
                 }
                 $result = Enterprise::where($searchFields)->get();
-
+                break;
             //töötaja
-            case 3:
+            case "3":
                 if($request['eesnimi']) {
                     $searchFields[] = ['first_name', 'ilike', '%' . $request['eesnimi'] . '%'];
                 }
                 if($request['nimi']) {
                     $searchFields[] = ['last_name', 'ilike', '%' . $request['nimi'] . '%'];
                 }
-                $result = Person::where($searchFields)->employee();
-            /*
-            //klient
-            case 4:
-                echo "Your favorite color is green!";
+
+                $persons = Person::where($searchFields)->get();
+                $result = array();
+                if(count($persons) > 0) {
+                    foreach ($persons as $person) {
+                        $employee = Employee::where('person_fk', '=', $person->person);
+                        if(count($employee->get()) > 0) {
+                            $result[] = $employee
+                            ->join('enterprise', 'enterprise_fk', '=', 'enterprise')
+                            ->join('person', 'person_fk', '=', 'person')
+                            ->get();
+                        }
+                    }
+                }
                 break;
-            default:
-                echo "Your favorite color is neither red, blue, nor green!";*/
+            //klient
+            case "4":
+                if($request['nimi']) {
+                    $searchFields[] = ['last_name', 'ilike', '%' . $request['nimi'] . '%'];
+                }
+                if($request['eesnimi']) {
+                    $searchFields[] = ['first_name', 'ilike', '%' . $request['eesnimi'] . '%'];
+                }
+                if($request['eesnimi']) {
+                    //otsitakse personit
+                    $result = array();
+                    $persons = Person::where($searchFields)->get();
+                    if(count($persons) > 0) {
+                        foreach ($persons as $person) {
+                            $customer = Customer::where('subject_type_fk', '=', 1);
+                            if(count($customer->get()) > 0) {
+                                $result[] = $customer
+                                    ->where('subject_fk', '=', $person->person)
+                                    ->join('person', 'subject_fk', '=', 'person')
+                                    ->get();
+                            }
+                        }
+                    }
+                } else if($request['nimi']) {
+                    //otsitakse personit JA enterprise
+                    $result = array();
+
+                    $persons = Person::where($searchFields)->get();
+                    if(count($persons) > 0) {
+                        foreach ($persons as $person) {
+                            $customer = Customer::where('subject_type_fk', '=' , 1)->where('subject_fk', '=', $person->person);
+                            if(count($customer->get()) > 0) {
+                                $result[] = $customer
+                                    ->where('subject_fk', '=', $person->person)
+                                    ->join('person', 'subject_fk', '=', 'person')
+                                    ->get();
+                            }
+                        }
+                    }
+                    $enterprises = Enterprise::where('full_name', 'ilike', '%' . $request['nimi'] . '%')->get();
+                    if(count($enterprises) > 0) {
+                        foreach ($enterprises as $enterprise) {
+                            $customer = Customer::where('subject_type_fk', '=' , 2)->where('subject_fk', '=', $enterprise->enterprise);
+                            if(count($customer->get()) > 0) {
+                                $result[] = $customer
+                                    ->where('subject_fk', '=', $enterprise->enterprise)
+                                    ->join('enterprise', 'subject_fk', '=', 'enterprise')
+                                    ->get();
+                            }
+                        }
+                    }
+                }
+                break;
         }
-        return redirect()->back()->with('result', $result);
+        return redirect()->back()->with('result', $result)->with('type', $request['subjekt']);
     }
 
     public function attributes(Request $request)

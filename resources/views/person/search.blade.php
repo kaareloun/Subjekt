@@ -35,11 +35,55 @@
                     </form>
 
                     @if(session()->has('result'))
-                        @foreach(session('result') as $item)
-                            <div><b>{{$item->first_name}} {{$item->last_name}}</b></div>
-                            <div>Isikukood:{{$item->identity_code}}</div>
-                            <div>Sündinud:{{$item->birth_date}}</div>
-                        @endforeach
+                        @if(session('type') == 1)
+                            @foreach(session('result') as $item)
+                                <div>
+                                    <div><b>{{$item->first_name}} {{$item->last_name}}</b></div>
+                                    <div>Isikukood:{{$item->identity_code}}</div>
+                                    <div>Sündinud:{{$item->birth_date}}</div>
+                                    <a href="/person/{{$item->person}}">Vaata</a>
+                                </div>
+                            @endforeach
+                        @elseif(session('type') == 2)
+                            @foreach(session('result') as $item)
+                                <div>
+                                    <div><b>{{$item->name}}</b></div>
+                                    <div>Nimi:{{$item->full_name}}</div>
+                                    <a href="/enterprise/{{$item->enterprise}}">Vaata</a>
+                                </div>
+                            @endforeach
+                        @elseif(session('type') == 3)
+                            @foreach(session('result') as $item)
+                                @foreach($item as $item2)
+                                    <div>
+                                        <div>Nimi: <b>{{$item2->first_name}} {{$item2->last_name}}</b></div>
+                                        <a href="/person/{{$item2->person}}">Vaata</a>
+                                        <div>Töötab: <b>{{$item2->full_name}}</b></div>
+                                        <a href="/enterprise/{{$item2->enterprise}}">Vaata</a>
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        @elseif(session('type') == 4)
+                            @foreach(session('result') as $item)
+                                @foreach(session('result') as $item2)
+                                    @if(isset($item2->first()->first_name))
+                                        <div>
+                                            <div><b>{{$item2->first()->first_name}} {{$item2->first()->last_name}}</b></div>
+                                            <div>Isikukood:{{$item2->first()->identity_code}}</div>
+                                            <div>Sündinud:{{$item2->first()->birth_date}}</div>
+                                            <a href="/person/{{$item2->first()->person}}">Vaata</a>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <div><b>{{$item2->first()->name}}</b></div>
+                                            <div>Nimi:{{$item2->first()->full_name}}</div>
+                                            <a href="/enterprise/{{$item2->first()->enterprise}}">Vaata</a>
+                                        </div>
+                                    @endif
+
+                                @endforeach
+                            @endforeach
+                        @endif
                     @endif
 
                 </div>

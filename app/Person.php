@@ -40,8 +40,7 @@ class Person extends Model
 
     public function employee()
     {
-        return $this->hasOne('App\Employee', 'person_fk', 'person')
-            ->join('enterprise', 'enterprise_fk', '=', 'enterprise')->get();
+        return $this->hasOne('App\Employee', 'person_fk', 'person');
     }
 
     public function attributes()
