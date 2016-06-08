@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::group(['middleware' => 'auth'], function () {
+
     //PERSON
     /*
     Route::get('/person/create', function () {
@@ -38,7 +38,7 @@ Route::get('/', function () {
 
     //SEARCH
     Route::get('/search', 'API\SearchController@index');
-    
+
     //USER
     Route::get('/addUser/{id}', 'RegisterController@showForm');
 
@@ -49,8 +49,3 @@ Route::get('/', function () {
         Route::get('/search/attributes', 'API\SearchController@attributes');
         Route::get('/search', 'API\SearchController@search');
     });
-
-    Route::auth();
-
-    Route::get('/home', 'HomeController@index');
-//});
