@@ -12,19 +12,19 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script>
-
-
+        
+        
         function populateAttributes(){
             console.log("populate");
                     @foreach ($person -> subject_attributes() as $attribute)
                         @for ($i = 0; $i < count($attribute); $i++)
                             //{{ $attribute[$i]['type_name'] }}</b> :<input value="@if($attribute[$i]['data_type'] == 1) {{$attribute[$i]['value_text']}} @elseif($attribute[$i]['data_type'] == 3) {{$attribute[$i]['value_date']}} @elseif($attribute[$i]['data_type'] == 2) {{$attribute[$i]['value_number']}} @endif" type="text" name="{{ $attribute[$i]['subject_attribute_type'] }}">
-
+                        
                             document.getElementById("{{$attribute[$i]['subject_attribute_type']}}").value = "@if($attribute[$i]['data_type'] == 1){{$attribute[$i]['value_text']}}@elseif($attribute[$i]['data_type'] == 3){{$attribute[$i]['value_date']}}@elseif($attribute[$i]['data_type'] == 2){{$attribute[$i]['value_number']}}@endif";
                         @endfor
                     @endforeach
         }
-
+            
     </script>
     </head>
     <body onload="populateAttributes()">
@@ -64,14 +64,8 @@
 
                     @if($person -> employee() -> first())
                         <p>Kasutaja konto: <a href="/addUser/{{$person -> employee() -> first() -> employee}}">loo/vaata</a></p>
-<<<<<<< HEAD
-                        <p>{{$person -> employee() -> first() -> employee}}</p>
-                    @endif
-
-=======
                     @endif        
                     
->>>>>>> origin/master
 
 
 @include('person.addAddress')
