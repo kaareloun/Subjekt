@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Subject_type;
 use App\Person;
+use App\Enterprise;
+use App\Employee;
 
 class SearchController extends Controller
 {
@@ -19,9 +21,10 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
+        $searchFields = [];
+
         switch ($request['subjekt']) {
             case 1: //isik
-                $searchFields = [];
                 if($request['eesnimi']) {
                     $searchFields[] = ['first_name', 'ilike', '%' . $request['eesnimi'] . '%'];
                 }
@@ -29,14 +32,23 @@ class SearchController extends Controller
                     $searchFields[] = ['last_name', 'ilike', '%' . $request['nimi'] . '%'];
                 }
                 $result = Person::where($searchFields)->get();
-            /*//ettevõte
+            //ettevõte
             case 2:
-                echo "Your favorite color is blue!";
-                break;
+                if($request['nimi']) {
+                    $searchFields[] = ['full_name', 'ilike', '%' . $request['nimi'] . '%'];
+                }
+                $result = Enterprise::where($searchFields)->get();
+
             //töötaja
             case 3:
-                echo "Your favorite color is green!";
-                break;
+                if($request['eesnimi']) {
+                    $searchFields[] = ['first_name', 'ilike', '%' . $request['eesnimi'] . '%'];
+                }
+                if($request['nimi']) {
+                    $searchFields[] = ['last_name', 'ilike', '%' . $request['nimi'] . '%'];
+                }
+                $result = Person::where($searchFields)->employee();
+            /*
             //klient
             case 4:
                 echo "Your favorite color is green!";
