@@ -14,35 +14,40 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => 'auth'], function () {
+    //PERSON
+    /*
+    Route::get('/person/create', function () {
+        return view('addPerson');
+    });
+    */
+    //PERSON
+    Route::get('/person/create', 'PersonController@showFormGet');
+    Route::post('/person/create', 'PersonController@store');
+    Route::get('/person/update/{id}', 'PersonController@showFormUpdateGet');
+    Route::post('/person/update/{id}', 'PersonController@storeUpdate');
+    Route::get('/person/{id}', 'PersonController@show');
 
-//PERSON
-/*
-Route::get('/person/create', function () {
-    return view('addPerson');
-});
-*/
-//PERSON
-Route::get('/person/create', 'PersonController@showFormGet');
-Route::post('/person/create', 'PersonController@store');
-Route::get('/person/update/{id}', 'PersonController@showFormUpdateGet');
-Route::post('/person/update/{id}', 'PersonController@storeUpdate');
-Route::get('/person/{id}', 'PersonController@show');
 
+    //ADDRESS
+    Route::post('/address/{id}/update', 'AddressController@update');
+    Route::post('/address/create', 'AddressController@store');
 
-//ADDRESS
-Route::post('/address/{id}/update', 'AddressController@update');
-Route::post('/address/create', 'AddressController@store');
+    //ENTERPRISE
+    Route::resource('enterprise', 'EnterpriseController');
 
-//ENTERPRISE
-Route::resource('enterprise', 'EnterpriseController');
+    //SEARCH
+    Route::get('/search', 'API\SearchController@index');
 
-//SEARCH
-Route::get('/search', 'API\SearchController@index');
+    //API
+    Route::group(['prefix' => 'api'], function () {
+        Route::post('/person/link', 'API\ApiPersonController@link');
+        Route::get('/person', 'API\ApiPersonController@show');
+        Route::get('/search/attributes', 'API\SearchController@attributes');
+        Route::get('/search', 'API\SearchController@search');
+    });
 
-//API
-Route::group(['prefix' => 'api'], function () {
-    Route::post('/person/link', 'API\ApiPersonController@link');
-    Route::get('/person', 'API\ApiPersonController@show');
-    Route::get('/search/attributes', 'API\SearchController@attributes');
-    Route::get('/search', 'API\SearchController@search');
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
