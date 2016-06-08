@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['middleware' => 'auth'], function () {
+//Route::group(['middleware' => 'auth'], function () {
     //PERSON
     /*
     Route::get('/person/create', function () {
@@ -50,4 +50,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-});
+//});
