@@ -1,3 +1,4 @@
+@include('auth')
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,8 +10,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="">       
-                    
+                <div class="">
+
                     Subject:
                     <div>
                         <table border="1">
@@ -21,11 +22,11 @@
                             <tr>
                                 <th>Last name</th>
                                 <td>{{ $person['last_name'] }}</td>
-                                
+
                             </tr>
                             <tr>
                                 <th>Identity code</th>
-                                <td>{{ $person['identity_code'] }}</td>                 
+                                <td>{{ $person['identity_code'] }}</td>
                             </tr>
                             <tr>
                                 <th>Birth date</th>
@@ -54,12 +55,12 @@
                                 @endforeach
                             </table>
                         </div>
-                    
+
                     <div style="padding-top:30px">
                         <a href="/person/update/{{$person['person']}}">Edit</a>
                     </div>
-                    
-                   
+
+
 
 
                 </div>

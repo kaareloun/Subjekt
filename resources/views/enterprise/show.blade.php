@@ -1,3 +1,4 @@
+@include('auth')
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,6 +35,7 @@
                         <b>{{$relations->find($person->pivot->ent_per_relation_type_fk)->type_name}}</b> {{$person->first_name}} {{$person->last_name}}  {{$person->identity_code}} {{$person->birth_date}}
                     </div>
                 @endforeach
+                <a href="/enterprise/{{$enterprise['enterprise']}}/edit">Edit</a>
             </div>
         </div>
     </body>

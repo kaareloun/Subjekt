@@ -1,3 +1,4 @@
+@include('auth')
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +10,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="">                           
+                <div class="">
                 <form method="post">
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 Create user account for employee:<br>
@@ -18,11 +19,11 @@
                 Username: <input type="text" name="fname"><br>
                 Password: <input type="text" name="fname"><br>
                 <input type="submit" value="Submit">
-                    
-                
-                    
-                </form>    
-                
+
+
+
+                </form>
+
 
                 </div>
             </div>

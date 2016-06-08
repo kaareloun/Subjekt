@@ -1,3 +1,4 @@
+@include('auth')
 <!DOCTYPE html>
 <html>
     <head>
